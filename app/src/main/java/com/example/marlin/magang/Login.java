@@ -88,7 +88,7 @@ public class Login extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
-                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            Intent intent = new Intent(Login.this, Home.class);
                             Login.this.startActivity(intent);
                             finish();
 
