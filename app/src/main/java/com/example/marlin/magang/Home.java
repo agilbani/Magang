@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Home extends AppCompatActivity {
 
@@ -37,6 +38,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Home.this, Register.class));
+                Toast.makeText(Home.this,"Success" , Toast.LENGTH_SHORT).show();
             }
         });
 
