@@ -1,3 +1,50 @@
 <resources>
     <string name="app_name">Magang</string>
+    <string name="email"> Email:</string>
+    <string name="pass"> Password:</string>
+    <string name="welcome"> Selamat Datang</string>
+    <string name="ok"> OK</string>
+    <string name="cancel"> Cancel</string>
+    <string name="home"> HOME</string>
+    <string name="monitor"> MONITORING</string>
+    <string name="send"> Send</string>
+    <string name="kondisi"> Condition</string>
+    <string name="chooseImg"> Choose Image </string>
+    <string name="route"> Route </string>
+    <string name="description"> Description </string>
+    <string name="takeImage"> Take Image From Galery </string>
+    <string name="permission"> Accessing Location Permissions required </string>
+    <string name="goto_permission_setting"> Go to App settings and enable permission </string>
+
+
+    <string-array name="marlin">
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+        <item> marlin@mail.com </item>
+
+    </string-array>
+
+    <string-array name="kondisi">
+        <!--<item> Select Condition </item>-->
+        <item> NORMAL </item>
+        <item> TROUBLE </item>
+
+    </string-array>
 </resources>
