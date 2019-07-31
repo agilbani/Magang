@@ -24,7 +24,7 @@
         android:layout_marginLeft="20dp"
         android:textSize="20dp"
         android:textColor="#95A5A6"
-        android:text="contoh"/>
+        android:text=""/>
 
     <TextView
         android:id="@+id/tvCondition"
@@ -45,7 +45,7 @@
         android:layout_marginLeft="20dp"
         android:textSize="20dp"
         android:textColor="#95A5A6"
-        android:text="contoh"/>
+        android:text=""/>
 
     <TextView
         android:id="@+id/tvDescription"
@@ -58,8 +58,8 @@
         android:textColor="#262626"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/editDescription"
+    <TextView
+        android:id="@+id/tvIsiDescription"
         android:layout_width="match_parent"
         android:layout_height="92dp"
         android:layout_marginLeft="20dp"

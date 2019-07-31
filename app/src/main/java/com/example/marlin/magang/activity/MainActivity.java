@@ -1,7 +1,9 @@
-package com.example.marlin.magang;
+package com.example.marlin.magang.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.marlin.magang.R;
 
 public class MainActivity extends AppCompatActivity {
 

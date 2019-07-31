@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background"
     android:scrollbarAlwaysDrawVerticalTrack="true"
-    tools:context=".Login">
+    tools:context=".activity.Login">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
