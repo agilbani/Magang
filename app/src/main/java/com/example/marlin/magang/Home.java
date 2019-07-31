@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,8 +25,22 @@ public class Home extends AppCompatActivity {
     Button btnChoose, btnSend;
     EditText dropText;
 
-    private static int RESULT_LOAD_IMG = 1;
-    String imgDecodableString;
+
+    final  int kodeGalerry = 100 , kodeKamera = 99;
+    Uri imageUri;
+
+//    private static int RESULT_LOAD_IMG = 1;
+//    String imgDecodableString;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == kodeGalerry && resultCode == RESULT_OK) {
+            imageUri = data.getData();
+            image_view.setImageURI(imageUri);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +50,29 @@ public class Home extends AppCompatActivity {
 
         ket = (TextView)findViewById(R.id.ketDesc);
         marlinLogo = (ImageView) findViewById(R.id.marlinlogo);
-        btnChoose = (Button) findViewById(R.id.btnchoose);
-
-        btnSend = (Button) findViewById(R.id.btnSend);
         dropText = (EditText) findViewById(R.id.dropText);
         spinnerAPI = (Spinner) findViewById(R.id.spinnerAPI);
         spinnerCon = (Spinner) findViewById(R.id.spinnerCon);
+        btnChoose = (Button) findViewById(R.id.btnchoose);
+        image_view = (ImageView)findViewById(R.id.image_view);
+        btnSend = (Button) findViewById(R.id.btnSend);
+
+        btnChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intentGallery, kodeGalerry);
+            }
+        });
+
+
+
 
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Home.this, Register.class));
+                startActivity(new Intent(Home.this, Login.class));
                 Toast.makeText(Home.this,"Success" , Toast.LENGTH_SHORT).show();
             }
         });
