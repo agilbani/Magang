@@ -5,22 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background"
     android:scrollbarAlwaysDrawVerticalTrack="true"
-    tools:context=".activity.Login">
+    tools:context=".Login">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#2E3280">
-
-    </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="280dp"
+        android:layout_marginTop="250dp"
         android:layout_marginRight="30dp"
         android:background="#ffffff"
         android:elevation="4dp"
@@ -87,7 +80,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="200dp"
         android:background="@drawable/logo"
         android:elevation="4dp" />
 

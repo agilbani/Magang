@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.marlin.magang.activity.Login;
-
 public class SplashScreen extends AppCompatActivity {
 
     private int waktu_loading = 2000;

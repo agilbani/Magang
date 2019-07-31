@@ -1,11 +1,13 @@
 package com.example.marlin.magang;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,8 +18,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.marlin.magang.activity.Register;
-
 public class Home extends AppCompatActivity {
 
     TextView tb_text , ket;
@@ -26,8 +26,24 @@ public class Home extends AppCompatActivity {
     Button btnChoose, btnSend;
     EditText dropText;
 
-    private static int RESULT_LOAD_IMG = 1;
-    String imgDecodableString;
+    Context context = this;
+
+
+    final  int kodeGalerry = 100 , kodeKamera = 99;
+    Uri imageUri;
+
+//    private static int RESULT_LOAD_IMG = 1;
+//    String imgDecodableString;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == kodeGalerry && resultCode == RESULT_OK) {
+            imageUri = data.getData();
+            image_view.setImageURI(imageUri);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +53,45 @@ public class Home extends AppCompatActivity {
 
         ket = (TextView)findViewById(R.id.ketDesc);
         marlinLogo = (ImageView) findViewById(R.id.marlinlogo);
-        btnChoose = (Button) findViewById(R.id.btnchoose);
-
-        btnSend = (Button) findViewById(R.id.btnSend);
         dropText = (EditText) findViewById(R.id.dropText);
         spinnerAPI = (Spinner) findViewById(R.id.spinnerAPI);
         spinnerCon = (Spinner) findViewById(R.id.spinnerCon);
+        btnChoose = (Button) findViewById(R.id.btnchoose);
+        image_view = (ImageView)findViewById(R.id.image_view);
+        btnSend = (Button) findViewById(R.id.btnSend);
+
+        btnChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intentGallery, kodeGalerry);
+            }
+        });
+
+
+
 
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Home.this, Register.class));
-                Toast.makeText(Home.this,"Success" , Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(Home.this, DialogAlert.class));
+//                Toast.makeText(Home.this,"Success" , Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder build = new AlertDialog.Builder(context);
+//                build.setTitle("Route");
+//                build.setMessage(" ");
+//                build.setTitle("Condition");
+//                build.setMessage(" ");
+//                build.setTitle("Description");
+//                build.setMessage(" ");
+
+                build.setPositiveButton("Oke", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
             }
         });
 

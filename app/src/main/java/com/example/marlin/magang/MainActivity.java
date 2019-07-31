@@ -1,4 +1,4 @@
-package com.example.marlin.magang.activity;
+package com.example.marlin.magang;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

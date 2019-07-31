@@ -1,108 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:weightSum="1"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:background="#dee2e4"
+    tools:context=".Home">
 
-    <TextView
-        android:id="@+id/tvRoute"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"
-        android:text="Route"
-        android:textSize="30dp"
-        android:textColor="#262626"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvIsiRoute"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="20dp"
-        android:textColor="#95A5A6"
-        android:text=""/>
-
-    <TextView
-        android:id="@+id/tvCondition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="Condition"
-        android:textSize="30dp"
-        android:textColor="#262626"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvIsiCondition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="20dp"
-        android:textColor="#95A5A6"
-        android:text=""/>
-
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="Description"
-        android:textSize="30dp"
-        android:textColor="#262626"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvIsiDescription"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="92dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/edit_text_background"
-        android:ellipsize="end"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:singleLine="true" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="#2E3280">
 
-    <LinearLayout
+        <!--<TextView-->
+        <!--android:id="@+id/tb_text"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/monitor"-->
+        <!--android:textColor="#000000" />-->
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="25dp"
-        android:weightSum="1">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btnOk"
-            android:layout_width="176dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:background="#2E3280"
-            android:text="OK"
-            android:elevation="20dp"
-            android:textColor="#fff"
-            android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="3">
 
-        <Button
-            android:id="@+id/btnCancel"
-            android:layout_width="176dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#6495F5"
-            android:textAllCaps="false"
-            android:text="Cancel"
-            android:elevation="20dp"
-            android:textColor="#fff"
-            android:textSize="18sp" />
+            <ImageView
+                android:id="@+id/marlinlogo"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/marlin" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/ketRoute"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/route"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#34495e"
+                android:textStyle="bold"/>
+
+            <Spinner
+                android:id="@+id/spinnerAPI"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorSpinner"
+                android:elevation="5dp"
+                android:entries="@array/marlin"
+                android:spinnerMode="dropdown"></Spinner>
+
+            <TextView
+                android:id="@+id/ketCondition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/kondisi"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#34495e"
+                android:textStyle="bold"/>
+
+            <Spinner
+                android:id="@+id/spinnerCon"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorSpinner"
+                android:elevation="5dp"
+                android:entries="@array/kondisi">
+
+            </Spinner>
+
+
+            <Button
+                android:id="@+id/btnchoose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:drawableLeft="@drawable/ic_image"
+                android:elevation="30dp"
+                android:text="@string/chooseImg" />
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:id="@+id/ketDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="#34495e"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/dropText"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                android:elevation="5dp"
+                android:background="#ffffff"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:elevation="10dp"
+                android:background="@color/colorPrimary"
+                android:text="@string/send"
+                />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
 
 </LinearLayout>
