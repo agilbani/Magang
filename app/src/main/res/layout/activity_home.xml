@@ -62,7 +62,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@color/colorSpinner"
+                android:background="@drawable/text_view_background"
                 android:elevation="5dp"
                 android:entries="@array/marlin"
                 android:spinnerMode="dropdown"></Spinner>
@@ -85,7 +85,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@color/colorSpinner"
+                android:background="@drawable/text_view_background"
                 android:elevation="5dp"
                 android:entries="@array/kondisi">
 
@@ -127,7 +127,7 @@
                 android:layout_marginRight="10dp"
                 android:ems="10"
                 android:elevation="5dp"
-                android:background="#ffffff"
+                android:background="@drawable/text_view_background"
                 android:gravity="start|top"
                 android:inputType="textMultiLine" />
             <Button
@@ -139,7 +139,7 @@
                 android:textAllCaps="false"
                 android:textColor="#ffffff"
                 android:elevation="10dp"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/btn_style"
                 android:text="@string/send"
                 />
 
