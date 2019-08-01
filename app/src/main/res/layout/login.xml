@@ -57,7 +57,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="22dp"
-                android:background="#2E3280"
+                android:background="@drawable/btn_style"
                 android:text="Login"
                 android:textAllCaps="false"
                 android:textColor="#fff"
