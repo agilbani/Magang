@@ -16,6 +16,13 @@
         android:layout_height="?attr/actionBarSize"
         android:background="#2E3280">
 
+        <!--<TextView-->
+        <!--android:id="@+id/tb_text"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/monitor"-->
+        <!--android:textColor="#000000" />-->
     </android.support.v7.widget.Toolbar>
 
     <ScrollView

@@ -10,20 +10,6 @@
     android:background="#dee2e4"
     tools:context=".Home">
 
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="?attr/actionBarSize"-->
-        <!--android:background="#2E3280">-->
-
-        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/tb_text"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:text="@string/monitor"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:textColor="#000000" />&ndash;&gt;-->
-    <!--</android.support.v7.widget.Toolbar>-->
 
     <ScrollView
         android:layout_width="match_parent"

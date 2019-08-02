@@ -1,5 +1,6 @@
 package com.example.marlin.magang;
 
+import android.app.Dialog;
 import android.content.Intent;
 
 
@@ -18,11 +19,15 @@ import android.widget.Toast;
 
 public class Home extends AppCompatActivity {
 
-    TextView tb_text , ket;
+    TextView  ket;
     ImageView marlinLogo, image_view;
     Spinner spinnerAPI, spinnerCon;
     Button btnChoose, btnSend;
     EditText dropText;
+
+    Dialog alertDialog;
+    TextView tvRoute, tvIsiRoute, tvCondition, tvIsiCondition, tvDescription, tvIsiDescription;
+    Button btnOk, btnCancel;
 
 
     final  int kodeGalerry = 100 ;
@@ -45,8 +50,10 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        alertDialog = new Dialog(this);
+
         ket = (TextView)findViewById(R.id.ketDesc);
-        marlinLogo = (ImageView) findViewById(R.id.marlinlogo);
+        marlinLogo = (ImageView) findViewById(R.id.imgMarlin);
         dropText = (EditText) findViewById(R.id.dropText);
         spinnerAPI = (Spinner) findViewById(R.id.spinnerAPI);
         spinnerCon = (Spinner) findViewById(R.id.spinnerCon);
@@ -63,18 +70,65 @@ public class Home extends AppCompatActivity {
         });
 
 
-
-
-
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Home.this, Login.class));
-                Toast.makeText(Home.this,"Success" , Toast.LENGTH_SHORT).show();
+
+//                Toast.makeText(Home.this,"Success" , Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("dataRoute", spinnerAPI.getSelectedItem().toString());
+                bundle.putString("dataConditional", spinnerCon.getSelectedItem().toString());
+                bundle.putString("dataDescription", dropText.getText().toString());
+//                Intent intent = new Intent(Home.this, Home.class );
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+                ShowSendPopup();
             }
         });
 
     }
 
-//
+    public void ShowSendPopup(){
+
+
+        alertDialog.setContentView(R.layout.activity_alert_dialog);
+        tvRoute = (TextView) alertDialog.findViewById(R.id.tvRoute);
+        tvIsiRoute = (TextView) alertDialog.findViewById(R.id.tvIsiRoute);
+        tvCondition = (TextView) alertDialog.findViewById(R.id.tvCondition);
+        tvIsiCondition = (TextView) alertDialog.findViewById(R.id.tvIsiCondition);
+        tvDescription = (TextView) alertDialog.findViewById(R.id.tvDescription);
+        tvIsiDescription = (TextView) alertDialog.findViewById(R.id.tvIsiDescription);
+        btnOk = (Button) alertDialog.findViewById(R.id.btnOk);
+        btnCancel = (Button) alertDialog.findViewById(R.id.btnCancel);
+
+       if(getIntent().getExtras()!=null){
+            Bundle bundle = getIntent().getExtras();
+            tvIsiRoute.setText(bundle.getString("dataRoute"));
+            tvIsiCondition.setText(bundle.getString("dataConditional"));
+            tvIsiDescription.setText(bundle.getString("dataDescription"));
+        }
+       else{
+            tvIsiRoute.setText(getIntent().getStringExtra("dataRoute"));
+            tvIsiCondition.setText(getIntent().getStringExtra("dataConditional"));
+            tvIsiDescription.setText(getIntent().getStringExtra("dataDescription"));
+          }
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Home.this, Home.class));
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Home.this, "Button Cancel", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        alertDialog.show();
+    }
+
     }
