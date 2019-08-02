@@ -28,10 +28,8 @@ public class Home extends AppCompatActivity {
     final  int kodeGalerry = 100 ;
     Uri imageUri;
 
-//    private static int RESULT_LOAD_IMG = 1;
-//    String imgDecodableString;
 
-    @Override
+     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

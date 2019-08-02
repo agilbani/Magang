@@ -31,7 +31,7 @@ public class Login extends AppCompatActivity {
     Toolbar toolbar;
     TextView editEmail, editPass, linkRegister;
     Button btnLogin;
-    private static String URL_Login = "https://marlinbooking.co.id/api/v1/login";
+    private static String URL_Login = "https://marl inbooking.co.id/api/v1/login";
 
 
 
