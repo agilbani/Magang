@@ -28,7 +28,6 @@ import java.util.Map;
 
 public class Login extends AppCompatActivity {
     ImageView imageLogo;
-    Toolbar toolbar;
     TextView editEmail, editPass, linkRegister;
     Button btnLogin;
     private static String URL_Login = "https://marlinbooking.co.id/api/v1/login";
@@ -40,7 +39,6 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         imageLogo = (ImageView) findViewById(R.id.imageLogo);
         editEmail = (TextView) findViewById(R.id.editEmail);
         editPass = (TextView) findViewById(R.id.editPass);

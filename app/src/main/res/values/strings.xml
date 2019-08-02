@@ -42,7 +42,7 @@
     </string-array>
 
     <string-array name="kondisi">
-        <!--<item> Select Condition </item>-->
+        <item> --Select Condition-- </item>
         <item> NORMAL </item>
         <item> TROUBLE </item>
 
