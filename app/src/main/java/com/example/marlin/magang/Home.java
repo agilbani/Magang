@@ -28,7 +28,7 @@ public class Home extends AppCompatActivity {
     Dialog alertDialog;
     TextView tvRoute, tvIsiRoute, tvCondition, tvIsiCondition, tvDescription, tvIsiDescription;
     Button btnOk, btnCancel;
-
+    private static String URL_Home = "";
 
     final  int kodeGalerry = 100 ;
     Uri imageUri;
