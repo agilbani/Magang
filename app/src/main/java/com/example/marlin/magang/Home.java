@@ -84,9 +84,9 @@ public class Home extends AppCompatActivity {
 //                intent.putExtras(bundle);
 //                startActivity(intent);
 
-                String SpinnerApi = spinnerAPI.getSelectedItem().toString().trim();
-                String SpinnerCond = spinnerCon.getSelectedItem().toString().trim();
-                String DropText = dropText.getText().toString().trim();
+//                String SpinnerApi = spinnerAPI.getSelectedItem().toString().trim();
+//                String SpinnerCond = spinnerCon.getSelectedItem().toString().trim();
+//                String DropText = dropText.getText().toString().trim();
 
 
 
@@ -133,7 +133,7 @@ public class Home extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Home.this, "Button Cancel", Toast.LENGTH_SHORT).show();
+               alertDialog.cancel();
 
             }
         });
