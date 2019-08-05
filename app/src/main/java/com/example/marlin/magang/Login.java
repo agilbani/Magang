@@ -93,7 +93,7 @@ public class Login extends AppCompatActivity {
                         } catch (JSONException e) {
                             btnLogin.setVisibility(View.VISIBLE);
                             e.printStackTrace();
-                            Toast.makeText(Login.this,"Error" +e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this,"Error", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {

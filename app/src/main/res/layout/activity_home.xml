@@ -89,9 +89,10 @@
                 android:drawableLeft="@drawable/ic_image"
                 android:elevation="30dp"
                 android:text="@string/chooseImg" />
+
             <ImageView
                 android:id="@+id/image_view"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
 

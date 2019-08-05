@@ -1,6 +1,7 @@
 package com.example.marlin.magang;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 
@@ -28,7 +29,6 @@ public class Home extends AppCompatActivity {
     Dialog alertDialog;
     TextView tvRoute, tvIsiRoute, tvCondition, tvIsiCondition, tvDescription, tvIsiDescription;
     Button btnOk, btnCancel;
-    private static String URL_Home = "";
 
     final  int kodeGalerry = 100 ;
     Uri imageUri;
@@ -75,13 +75,20 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
 
 //                Toast.makeText(Home.this,"Success" , Toast.LENGTH_SHORT).show();
-                Bundle bundle = new Bundle();
-                bundle.putString("dataRoute", spinnerAPI.getSelectedItem().toString());
-                bundle.putString("dataConditional", spinnerCon.getSelectedItem().toString());
-                bundle.putString("dataDescription", dropText.getText().toString());
-//                Intent intent = new Intent(Home.this, Home.class );
+//                Bundle bundle = new Bundle();
+//                bundle.putString("dataRoute", spinnerAPI.getSelectedItem().toString());
+//                bundle.putString("dataConditional", spinnerCon.getSelectedItem().toString());
+//                bundle.putString("dataDescription", dropText.getText().toString());
+//                Intent intent = new Intent(Home.this, Home.class);
 //                intent.putExtras(bundle);
 //                startActivity(intent);
+
+//                String SpinnerApi = spinnerAPI.getSelectedItem().toString().trim();
+//                String SpinnerCond = spinnerCon.getSelectedItem().toString().trim();
+//                String DropText = dropText.getText().toString().trim();
+
+
+
                 ShowSendPopup();
             }
         });
@@ -101,29 +108,31 @@ public class Home extends AppCompatActivity {
         btnOk = (Button) alertDialog.findViewById(R.id.btnOk);
         btnCancel = (Button) alertDialog.findViewById(R.id.btnCancel);
 
-       if(getIntent().getExtras()!=null){
-            Bundle bundle = getIntent().getExtras();
-            tvIsiRoute.setText(bundle.getString("dataRoute"));
-            tvIsiCondition.setText(bundle.getString("dataConditional"));
-            tvIsiDescription.setText(bundle.getString("dataDescription"));
-        }
-       else{
-            tvIsiRoute.setText(getIntent().getStringExtra("dataRoute"));
-            tvIsiCondition.setText(getIntent().getStringExtra("dataConditional"));
-            tvIsiDescription.setText(getIntent().getStringExtra("dataDescription"));
-          }
+
+
+//        if(getIntent().getExtras()!=null){
+//            Bundle bundle = getIntent().getExtras();
+//            tvIsiRoute.setText(bundle.getString("dataRoute"));
+//            tvIsiCondition.setText(bundle.getString("dataConditional"));
+//            tvIsiDescription.setText(bundle.getString("dataDescription"));
+//        }
+//        else{
+//            tvIsiRoute.setText(getIntent().getStringExtra("dataRoute"));
+//            tvIsiCondition.setText(getIntent().getStringExtra("dataConditional"));
+//            tvIsiDescription.setText(getIntent().getStringExtra("dataDescription"));
+//          }
 
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Home.this, Home.class));
+               startActivity(new Intent(Home.this, Home.class));
             }
         });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Home.this, "Button Cancel", Toast.LENGTH_SHORT).show();
+               alertDialog.cancel();
 
             }
         });
