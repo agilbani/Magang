@@ -1,6 +1,7 @@
 package com.example.marlin.magang;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ public class Register extends AppCompatActivity {
     ImageView imgMarlin;
     Button btnRegister;
 
+
     static String URL_REGIST = "https://marlinbooking.co.id/api/v1/register";
 
     @Override
@@ -45,6 +47,7 @@ public class Register extends AppCompatActivity {
         phone = (EditText) findViewById(R.id.etPhone);
         imgMarlin = (ImageView) findViewById(R.id.imgMarlin);
         btnRegister = (Button) findViewById(R.id.btnRegister);
+
 
 
         btnRegister.setOnClickListener(new View.OnClickListener() {

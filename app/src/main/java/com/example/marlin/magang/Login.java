@@ -1,9 +1,12 @@
 package com.example.marlin.magang;
 
-
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +33,7 @@ public class Login extends AppCompatActivity {
     ImageView imageLogo;
     TextView editEmail, editPass, linkRegister;
     Button btnLogin;
-    private static String URL_Login = "https://marl inbooking.co.id/api/v1/login";
+    private static String URL_Login = "https://marlinbooking.co.id/api/v1/login";
 
 
 
