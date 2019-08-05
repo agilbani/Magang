@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity {
     ImageView imageLogo;
     TextView editEmail, editPass, linkRegister;
     Button btnLogin;
-    private static String URL_Login = "https://marl inbooking.co.id/api/v1/login";
+    private static String URL_Login = "https://marlinbooking.co.id/api/v1/login";
 
 
 
@@ -90,7 +90,7 @@ public class Login extends AppCompatActivity {
                         } catch (JSONException e) {
                             btnLogin.setVisibility(View.VISIBLE);
                             e.printStackTrace();
-                            Toast.makeText(Login.this,"Error" +e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this,"Error", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
