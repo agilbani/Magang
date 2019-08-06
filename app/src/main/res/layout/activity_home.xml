@@ -10,7 +10,13 @@
     android:background="#dee2e4"
     tools:context=".Home">
 
-
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:popupTheme="@style/PopupStyle">
+    </android.support.v7.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

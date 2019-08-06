@@ -14,6 +14,7 @@
     <string name="description"> Description </string>
     <string name="takeImage"> Take Image From Galery </string>
     <string name="permission"> Accessing Location Permissions required </string>
+    <string name="Logout"> Log Out </string>
     <string name="goto_permission_setting"> Go to App settings and enable permission </string>
 
 

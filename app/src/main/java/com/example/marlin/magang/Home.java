@@ -1,6 +1,7 @@
 package com.example.marlin.magang;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
@@ -12,6 +13,10 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,11 +41,12 @@ public class Home extends AppCompatActivity {
     TextView tvRoute, tvIsiRoute, tvCondition, tvIsiCondition, tvDescription, tvIsiDescription;
     Button btnOk, btnCancel;
 
+    Toolbar toolbar;
+
+    SessionManager sessionManager;
+
     final  int kodeGalerry = 100 ;
     Uri imageUri;
-
-
-
 
      @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -64,9 +70,6 @@ public class Home extends AppCompatActivity {
 
         alertDialog = new Dialog(this);
 
-//        sessionManager = new SessionManager(this);
-//        sessionManager.checkLoggin();
-
         ket = (TextView)findViewById(R.id.ketDesc);
         marlinLogo = (ImageView) findViewById(R.id.imgMarlin);
         dropText = (EditText) findViewById(R.id.dropText);
@@ -76,9 +79,22 @@ public class Home extends AppCompatActivity {
         image_view = (ImageView)findViewById(R.id.image_view);
         btnSend = (Button) findViewById(R.id.btnSend);
 
-//        HashMap<String, String> user = sessionManager.getUserDetail();
-//        String mEmail = user.get(sessionManager.EMAIL);
-//        String mPass = user.get(sessionManager.PASSWORD);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // sessionManager.logout();
+//                Intent logoutintent = new Intent(this, Login.class);
+//                startActivity(logoutintent);
+//                SharedPreferences loginSharedPreferences;
+//                //loginSharedPreferences = getSharedPreferences( Login.MyPREFERENCES, Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = loginSharedPreferences.edit();
+//                editor.putString("UniqueId", "");
+//                editor.commit(); finish();
+            }
+        });
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +128,18 @@ public class Home extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     public void ShowSendPopup(){
