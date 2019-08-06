@@ -35,12 +35,15 @@ public class Login extends AppCompatActivity {
     Button btnLogin;
     private static String URL_Login = "https://marlinbooking.co.id/api/v1/login";
 
-
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        sessionManager = new SessionManager(this);
+
 
         imageLogo = (ImageView) findViewById(R.id.imageLogo);
         editEmail = (TextView) findViewById(R.id.editEmail);
@@ -53,7 +56,6 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 String mEmail = editEmail.getText().toString().trim();
                 String mPass = editPass.getText().toString().trim();
-
 
 
                 if (!mEmail.isEmpty() || !mPass.isEmpty()) {
@@ -86,6 +88,9 @@ public class Login extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
+
+                            //sessionManager.createSession(mEmail, mPass);
+
                             Intent intent = new Intent(Login.this, Home.class);
                             Login.this.startActivity(intent);
                             finish();

@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.HashMap;
 
 public class Home extends AppCompatActivity {
 
@@ -32,6 +36,8 @@ public class Home extends AppCompatActivity {
 
     final  int kodeGalerry = 100 ;
     Uri imageUri;
+
+    //SessionManager sessionManager;
 
 
      @Override
@@ -52,6 +58,9 @@ public class Home extends AppCompatActivity {
 
         alertDialog = new Dialog(this);
 
+//        sessionManager = new SessionManager(this);
+//        sessionManager.checkLoggin();
+
         ket = (TextView)findViewById(R.id.ketDesc);
         marlinLogo = (ImageView) findViewById(R.id.imgMarlin);
         dropText = (EditText) findViewById(R.id.dropText);
@@ -60,6 +69,10 @@ public class Home extends AppCompatActivity {
         btnChoose = (Button) findViewById(R.id.btnchoose);
         image_view = (ImageView)findViewById(R.id.image_view);
         btnSend = (Button) findViewById(R.id.btnSend);
+
+//        HashMap<String, String> user = sessionManager.getUserDetail();
+//        String mEmail = user.get(sessionManager.EMAIL);
+//        String mPass = user.get(sessionManager.PASSWORD);
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
