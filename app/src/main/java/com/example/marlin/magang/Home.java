@@ -13,8 +13,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,7 +39,7 @@ public class Home extends AppCompatActivity {
     final  int kodeGalerry = 100 ;
     Uri imageUri;
 
-    //SessionManager sessionManager;
+
 
 
      @Override
@@ -47,8 +49,12 @@ public class Home extends AppCompatActivity {
         if (requestCode == kodeGalerry && resultCode == RESULT_OK) {
             imageUri = data.getData();
             image_view.setImageURI(imageUri);
+            image_view.setVisibility(image_view.VISIBLE);
+
         }
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
