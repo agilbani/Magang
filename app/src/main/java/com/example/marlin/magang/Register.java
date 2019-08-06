@@ -34,6 +34,8 @@ public class Register extends AppCompatActivity {
 
     static String URL_REGIST = "https://marlinbooking.co.id/api/v1/register";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,6 @@ public class Register extends AppCompatActivity {
         phone = (EditText) findViewById(R.id.etPhone);
         imgMarlin = (ImageView) findViewById(R.id.imgMarlin);
         btnRegister = (Button) findViewById(R.id.btnRegister);
-
 
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
