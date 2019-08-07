@@ -16,6 +16,13 @@
         android:layout_height="wrap_content"
         android:background="@color/design_default_color_primary"
         app:popupTheme="@style/PopupStyle">
+
+        <TextView
+        android:id="@+id/tb_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="#000000" />
     </android.support.v7.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
