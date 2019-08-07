@@ -17,40 +17,33 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
+       sharedPreferences = getSharedPreferences("LOGIN", MODE_PRIVATE);
 
+       String nama = sharedPreferences.getString("NAME", "default_name");
 
-
-       //sharedPreferences = getSharedPreferences("MyPrefs",MODE_PRIVATE);
-
-       String firstTime = sharedPreferences.getString("firstTime", null);
-       Log.d("cek cek", firstTime);
-
-       new Handler().postDelayed(new Runnable() {
-           @Override
-           public void run() {
-               Intent splash = new Intent(SplashScreen.this, Login.class);
-               startActivity(splash);
-               finish();
-           }
-       }, 2000);
-
-       if(firstTime != null){
-//                   SharedPreferences.Editor editor = sharedPreferences.edit();
-//                   editor.putString("firstTime",firstTime);
-//                   editor.apply();
-                   Intent i = new Intent(SplashScreen.this, Home.class);
-                   startActivity(i);
+       if(nama == "default_name"){
+           new Handler().postDelayed(new Runnable() {
+               @Override
+               public void run() {
+                   Intent splash = new Intent(SplashScreen.this, Login.class);
+                   startActivity(splash);
                    finish();
-//
-       } else{
-           Intent i = new Intent(SplashScreen.this, Login.class);
-           startActivity(i);
-           finish();
-          }
+               }
+           }, 2000);
+
+       } else {
+           new Handler().postDelayed(new Runnable() {
+               @Override
+               public void run() {
+                   Intent splash = new Intent(SplashScreen.this, Home.class);
+                   startActivity(splash);
+                   finish();
+               }
+           }, 2000);
+       }
 
 
-
-            }
-        }
+           }
+       }
 
 

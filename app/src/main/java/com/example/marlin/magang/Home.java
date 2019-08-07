@@ -41,6 +41,7 @@ public class Home extends AppCompatActivity {
     TextView tvRoute, tvIsiRoute, tvCondition, tvIsiCondition, tvDescription, tvIsiDescription;
     Button btnOk, btnCancel;
 
+    SharedPreferences.Editor editor;
 
     Toolbar toolbar;
 
@@ -65,6 +66,9 @@ public class Home extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+         sessionManager = new SessionManager(this);
+         sessionManager.checkLogin();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -146,22 +150,18 @@ public class Home extends AppCompatActivity {
 
          if (id == R.id.app_bar) {
 
-
-//             sessionManager.checkLogout();
-//             Intent intent = new Intent(getApplicationContext(),Login.class);
-//             startActivity(intent);
-//             finish();
-//             return true;
          }else if (id == R.id.action_settings){
-             Intent loginInten = new Intent(Home.this, Login.class);
-             loginInten.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-             startActivity(loginInten);
+             sessionManager.logout();
+             Intent intent = new Intent(getApplicationContext(),Login.class);
+             startActivity(intent);
+             finish();
+             return true;
          }
 
 
         return super.onOptionsItemSelected(item);
     }
-//        private void logout () {
+//        private void logout() {
 //                sessionManager.logout();
 //                startActivity(new Intent(this, Login.class));
 //         finish();

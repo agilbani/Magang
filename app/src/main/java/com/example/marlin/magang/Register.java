@@ -87,13 +87,16 @@ public class Register extends AppCompatActivity {
 
                             if(success.equals("1")){
                                 Toast.makeText(Register.this, "Register success !!", Toast.LENGTH_SHORT).show();
+                                finish();
                             }
 
                         }catch (JSONException e){
                             e.printStackTrace();
                             Toast.makeText(Register.this, "Register Error !!"+ e.toString(), Toast.LENGTH_SHORT).show();
+
                             btnRegister.setVisibility(View.VISIBLE);
                         }
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -105,6 +108,7 @@ public class Register extends AppCompatActivity {
 
                     }
                 })
+
 
         {
             @Override
@@ -124,5 +128,7 @@ public class Register extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
+
+
 
 }

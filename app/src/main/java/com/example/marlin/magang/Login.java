@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 
@@ -88,9 +89,12 @@ public class Login extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
+                            String mNama = jsonObject.getJSONObject("payload").getString("name");
+                            String mEmail = jsonObject.getJSONObject("payload").getString("email");
 
-                            //sessionManager.createSession(mEmail, mPass);
+                            sessionManager.createSession(mEmail, mNama);
 
+                            Log.d("cek", jsonObject.getString("payload"));
                             Intent intent = new Intent(Login.this, Home.class);
                             Login.this.startActivity(intent);
                             finish();
