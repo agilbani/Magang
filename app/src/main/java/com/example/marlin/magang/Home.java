@@ -41,6 +41,7 @@ public class Home extends AppCompatActivity {
     TextView tvRoute, tvIsiRoute, tvCondition, tvIsiCondition, tvDescription, tvIsiDescription;
     Button btnOk, btnCancel;
 
+
     Toolbar toolbar;
 
     SessionManager sessionManager;
@@ -132,16 +133,39 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+         getMenuInflater().inflate(R.menu.menu, menu);
+
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+         int id = item.getItemId();
+
+         if (id == R.id.app_bar) {
+
+
+//             sessionManager.checkLogout();
+//             Intent intent = new Intent(getApplicationContext(),Login.class);
+//             startActivity(intent);
+//             finish();
+//             return true;
+         }else if (id == R.id.action_settings){
+             Intent loginInten = new Intent(Home.this, Login.class);
+             loginInten.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+             startActivity(loginInten);
+         }
+
+
         return super.onOptionsItemSelected(item);
     }
-
+//        private void logout () {
+//                sessionManager.logout();
+//                startActivity(new Intent(this, Login.class));
+//         finish();
+//        }
     public void ShowSendPopup(){
 
 

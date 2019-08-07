@@ -14,12 +14,16 @@ public class SessionManager {
     
     private static final String PREF_NAME="LOGIN";
     private static final String LOGIN ="IS_LOGIN";
+//    private  static  final  String PREF = "LOGOUT";
+//    private static  final  String LOGOUT = "IS_LOGOUT";
     public static final String EMAIL ="EMAIL";
     public static final String PASSWORD ="PASSWORD";
+
 
     public SessionManager(Context context){
         this.context = context;
         sharedPreferences = context.getSharedPreferences("LOGIN", PRIVATE_MODE);
+//        sharedPreferences = context.getSharedPreferences("LOGOUT", PRIVATE_MODE);
         editor = sharedPreferences.edit();
     }
 
@@ -41,6 +45,18 @@ public class SessionManager {
             ((Home) context).finish();
         }
     }
+//   public boolean logout() {
+//        return sharedPreferences.getBoolean(LOGOUT, false);
+//   }
+//   public void checkLogout(){
+//        if (!this.logout()) {
+//            Intent i = new Intent(context, Home.class);
+//            context.startActivity(i);
+//            ((Login) context).finish();
+//        }
+//   }
+
+
     
     public HashMap<String, String> getUserDetail(){
         HashMap<String, String> user = new HashMap<>();
