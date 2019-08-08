@@ -58,7 +58,11 @@
                 android:background="@drawable/text_view_background"
                 android:elevation="5dp"
                 android:entries="@array/marlin"
-                android:spinnerMode="dropdown"></Spinner>
+                android:spinnerMode="dropdown"
+
+                >
+
+            </Spinner>
 
             <TextView
                 android:id="@+id/ketCondition"
