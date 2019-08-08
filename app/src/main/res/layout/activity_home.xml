@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:weightSum="1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#dee2e4"
+    android:orientation="vertical"
+    android:weightSum="1"
     tools:context=".Home">
 
     <android.support.v7.widget.Toolbar
@@ -18,12 +17,13 @@
         app:popupTheme="@style/PopupStyle">
 
         <TextView
-        android:id="@+id/tb_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textColor="#000000" />
+            android:id="@+id/tb_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="#000000" />
     </android.support.v7.widget.Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -47,53 +47,65 @@
                 android:id="@+id/ketRoute"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/route"
-                android:layout_marginTop="40dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginRight="10dp"
+                android:text="@string/route"
                 android:textColor="#34495e"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spinnerAPI"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/text_view_background"
                 android:elevation="5dp"
-                android:entries="@array/marlin"
-                android:spinnerMode="dropdown"
+                android:background="@drawable/text_view_background"
+                android:orientation="horizontal">
 
-                >
+                <Spinner
+                    android:id="@+id/spinnerAPI"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:entries="@array/marlin"
+                    android:spinnerMode="dropdown">
 
-            </Spinner>
+                </Spinner>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/ketCondition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/kondisi"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
+                android:text="@string/kondisi"
                 android:textColor="#34495e"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spinnerCon"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/text_view_background"
                 android:elevation="5dp"
-                android:entries="@array/kondisi">
+                android:background="@drawable/text_view_background"
+                android:orientation="horizontal">
 
-            </Spinner>
+                <Spinner
+                    android:id="@+id/spinnerCon"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:entries="@array/kondisi">
+
+                </Spinner>
+
+            </LinearLayout>
 
 
             <Button
@@ -120,11 +132,11 @@
                 android:id="@+id/ketDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/description"
                 android:textColor="#34495e"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/dropText"
@@ -138,25 +150,24 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine" />
+
             <Button
                 android:id="@+id/btnSend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:textAllCaps="false"
-                android:textColor="#ffffff"
-                android:elevation="10dp"
                 android:background="@drawable/btn_style"
+                android:elevation="10dp"
                 android:text="@string/send"
-                />
+                android:textAllCaps="false"
+                android:textColor="#ffffff" />
 
 
         </LinearLayout>
 
 
     </ScrollView>
-
 
 
 </LinearLayout>
