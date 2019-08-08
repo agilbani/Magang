@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class Login extends AppCompatActivity {
     ImageView imageLogo;
     TextView editEmail, editPass, linkRegister;
     Button btnLogin;
+    ProgressBar loading;
     private static String URL_Login = "https://marlinbooking.co.id/api/v1/login";
 
     SessionManager sessionManager;
@@ -51,6 +53,7 @@ public class Login extends AppCompatActivity {
         editPass = (TextView) findViewById(R.id.editPass);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         linkRegister = (TextView) findViewById(R.id.linkRegister);
+        loading = (ProgressBar) findViewById(R.id.loading);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +64,9 @@ public class Login extends AppCompatActivity {
 
                 if (!mEmail.isEmpty() || !mPass.isEmpty()) {
                      Login(mEmail, mPass);
+                     loading.setVisibility(View.VISIBLE);
+
+
                 } else {
                     editEmail.setError("Please Insert Email");
                     editPass.setError("Please Insert Password");
@@ -108,9 +114,9 @@ public class Login extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Login.this,"email atau password salah", Toast.LENGTH_SHORT).show();
                 btnLogin.setVisibility(View.VISIBLE);
-                Toast.makeText(Login.this,"Error" +error.toString(), Toast.LENGTH_SHORT).show();
-
+                loading.setVisibility(View.GONE);
             }
         })
         {

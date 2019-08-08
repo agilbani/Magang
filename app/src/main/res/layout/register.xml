@@ -55,7 +55,7 @@
                     android:background="@drawable/text_view_background"
                     android:elevation="20dp"
                     android:ems="20"
-                    android:hint="nama depan"
+                    android:hint="first name"
                     android:inputType="textPersonName"
                     android:padding="10dp"
 
@@ -71,7 +71,7 @@
                     android:background="@drawable/text_view_background"
                     android:elevation="20dp"
                     android:ems="20"
-                    android:hint="nama belakang"
+                    android:hint="last name"
                     android:inputType="textPersonName"
                     android:padding="10dp" />
 
@@ -113,7 +113,7 @@
                     android:background="@drawable/text_view_background"
                     android:elevation="20dp"
                     android:ems="20"
-                    android:hint="Password"
+                    android:hint="password"
                     android:inputType="textPassword"
                     android:padding="10dp" />
 
@@ -127,7 +127,7 @@
                     android:background="@drawable/text_view_background"
                     android:elevation="20dp"
                     android:ems="20"
-                    android:hint="konfirmasi Password"
+                    android:hint="re-password"
                     android:inputType="textPassword"
                     android:padding="10dp" />
 

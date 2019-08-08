@@ -130,12 +130,12 @@
                 android:id="@+id/dropText"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:ems="10"
-                android:elevation="5dp"
                 android:background="@drawable/text_view_background"
+                android:elevation="5dp"
+                android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine" />
             <Button
