@@ -183,6 +183,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                startActivity(new Intent(Home.this, Home.class));
             }
         });
 
