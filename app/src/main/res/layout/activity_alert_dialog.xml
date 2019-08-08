@@ -49,7 +49,6 @@
         android:text="Normal"
         android:textColor="#95A5A6"
         android:textSize="15dp" />
-
     <TextView
         android:id="@+id/tvDescription"
         android:layout_width="match_parent"
@@ -65,7 +64,7 @@
     <TextView
         android:id="@+id/tvIsiDescription"
         android:layout_width="match_parent"
-        android:layout_height="92dp"
+        android:layout_height="90dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
@@ -82,13 +81,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:weightSum="2"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnOk"
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="20dp"
             android:background="#2E3280"
@@ -99,9 +99,10 @@
 
         <Button
             android:id="@+id/btnCancel"
-            android:layout_width="156dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:background="#6495F5"
