@@ -77,41 +77,41 @@
         android:text="normal normal normal normal mantep oke sip banget sumpah deh."
         android:singleLine="true" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:weightSum="2"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:weightSum="2"-->
+        <!--android:orientation="horizontal">-->
 
-        <Button
-            android:id="@+id/btnOk"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="#2E3280"
-            android:elevation="20dp"
-            android:text="OK"
-            android:textColor="#fff"
-            android:textSize="18sp" />
+        <!--<Button-->
+            <!--android:id="@+id/btnOk"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--android:background="#2E3280"-->
+            <!--android:elevation="20dp"-->
+            <!--android:text="OK"-->
+            <!--android:textColor="#fff"-->
+            <!--android:textSize="18sp" />-->
 
-        <Button
-            android:id="@+id/btnCancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="#6495F5"
-            android:elevation="20dp"
-            android:text="Cancel"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:textSize="18sp" />
+        <!--<Button-->
+            <!--android:id="@+id/btnCancel"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--android:background="#6495F5"-->
+            <!--android:elevation="20dp"-->
+            <!--android:text="Cancel"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textColor="#fff"-->
+            <!--android:textSize="18sp" />-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </LinearLayout>

@@ -11,9 +11,11 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,13 +33,15 @@ import java.util.HashMap;
 
 public class Home extends AppCompatActivity {
 
-    TextView  ket;
+    TextView ket;
     ImageView marlinLogo, image_view;
     Spinner spinnerAPI, spinnerCon;
     Button btnChoose, btnSend;
     EditText dropText;
 
-    Dialog alertDialog;
+    AlertDialog.Builder alertDialog;
+    LayoutInflater inflater;
+    View dialogView;
     TextView tvRoute, tvIsiRoute, tvCondition, tvIsiCondition, tvDescription, tvIsiDescription;
     Button btnOk, btnCancel;
 
@@ -47,10 +51,13 @@ public class Home extends AppCompatActivity {
 
     SessionManager sessionManager;
 
-    final  int kodeGalerry = 100 ;
+    final int kodeGalerry = 100;
     Uri imageUri;
 
-     @Override
+    public boolean doubleTapParam = false;
+
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -63,25 +70,24 @@ public class Home extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-         sessionManager = new SessionManager(this);
-         sessionManager.checkLogin();
+        sessionManager = new SessionManager(this);
+        sessionManager.checkLogin();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        alertDialog = new Dialog(this);
+//        alertDialog = new Dialog(this);
 
-        ket = (TextView)findViewById(R.id.ketDesc);
+        ket = (TextView) findViewById(R.id.ketDesc);
         marlinLogo = (ImageView) findViewById(R.id.imgMarlin);
         dropText = (EditText) findViewById(R.id.dropText);
         spinnerAPI = (Spinner) findViewById(R.id.spinnerAPI);
         spinnerCon = (Spinner) findViewById(R.id.spinnerCon);
         btnChoose = (Button) findViewById(R.id.btnchoose);
-        image_view = (ImageView)findViewById(R.id.image_view);
+        image_view = (ImageView) findViewById(R.id.image_view);
         btnSend = (Button) findViewById(R.id.btnSend);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -90,7 +96,7 @@ public class Home extends AppCompatActivity {
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // sessionManager.logout();
+                // sessionManager.logout();
 //                Intent logoutintent = new Intent(this, Login.class);
 //                startActivity(logoutintent);
 //                SharedPreferences loginSharedPreferences;
@@ -128,7 +134,6 @@ public class Home extends AppCompatActivity {
 //                String DropText = dropText.getText().toString().trim();
 
 
-
                 ShowSendPopup();
             }
         });
@@ -137,7 +142,7 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-         getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
 
 //        MenuInflater inflater = getMenuInflater();
 //        inflater.inflate(R.menu.menu, menu);
@@ -146,39 +151,56 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-         int id = item.getItemId();
+        int id = item.getItemId();
 
-         if (id == R.id.app_bar) {
+        if (id == R.id.app_bar) {
 
-         }else if (id == R.id.action_settings){
-             sessionManager.logout();
-             Intent intent = new Intent(getApplicationContext(),Login.class);
-             startActivity(intent);
-             finish();
-             return true;
-         }
+        } else if (id == R.id.action_settings) {
+            sessionManager.logout();
+            Intent intent = new Intent(getApplicationContext(), Login.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
 
 
         return super.onOptionsItemSelected(item);
     }
-//        private void logout() {
+
+    //        private void logout() {
 //                sessionManager.logout();
 //                startActivity(new Intent(this, Login.class));
 //         finish();
 //        }
-    public void ShowSendPopup(){
+    public void ShowSendPopup() {
+        alertDialog = new AlertDialog.Builder(this);
+        inflater = getLayoutInflater();
+        dialogView = inflater.inflate(R.layout.activity_alert_dialog, null);
+        alertDialog.setView(dialogView);
+        alertDialog.setCancelable(true);
 
+        alertDialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
 
-        alertDialog.setContentView(R.layout.activity_alert_dialog);
-        tvRoute = (TextView) alertDialog.findViewById(R.id.tvRoute);
-        tvIsiRoute = (TextView) alertDialog.findViewById(R.id.tvIsiRoute);
-        tvCondition = (TextView) alertDialog.findViewById(R.id.tvCondition);
-        tvIsiCondition = (TextView) alertDialog.findViewById(R.id.tvIsiCondition);
-        tvDescription = (TextView) alertDialog.findViewById(R.id.tvDescription);
-        tvIsiDescription = (TextView) alertDialog.findViewById(R.id.tvIsiDescription);
-        btnOk = (Button) alertDialog.findViewById(R.id.btnOk);
-        btnCancel = (Button) alertDialog.findViewById(R.id.btnCancel);
-
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+//        alertDialog.setContentView(R.layout.activity_alert_dialog);
+//        tvRoute = (TextView) alertDialog.findViewById(R.id.tvRoute);
+//        tvIsiRoute = (TextView) alertDialog.findViewById(R.id.tvIsiRoute);
+//        tvCondition = (TextView) alertDialog.findViewById(R.id.tvCondition);
+//        tvIsiCondition = (TextView) alertDialog.findViewById(R.id.tvIsiCondition);
+//        tvDescription = (TextView) alertDialog.findViewById(R.id.tvDescription);
+//        tvIsiDescription = (TextView) alertDialog.findViewById(R.id.tvIsiDescription);
+//        btnOk = (Button) alertDialog.findViewById(R.id.btnOk);
+//        btnCancel = (Button) alertDialog.findViewById(R.id.btnCancel);
 
 
 //        if(getIntent().getExtras()!=null){
@@ -193,22 +215,33 @@ public class Home extends AppCompatActivity {
 //            tvIsiDescription.setText(getIntent().getStringExtra("dataDescription"));
 //          }
 
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               startActivity(new Intent(Home.this, Home.class));
-            }
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               alertDialog.cancel();
-
-            }
-        });
+//        btnOk.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               startActivity(new Intent(Home.this, Home.class));
+//            }
+//        });
+//
+//        btnCancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               alertDialog.cancel();
+//
+//            }
+//        });
 
         alertDialog.show();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (doubleTapParam) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleTapParam = true;
+        Toast.makeText(this, "Tap sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
+
     }
+}
