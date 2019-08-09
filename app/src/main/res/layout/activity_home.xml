@@ -65,7 +65,7 @@
                 android:orientation="horizontal">
 
                 <Spinner
-                    android:id="@+id/spinnerAPI"
+                    android:id="@+id/spinnerRoute"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:layout_gravity="center"
@@ -98,7 +98,7 @@
                 android:orientation="horizontal">
 
                 <Spinner
-                    android:id="@+id/spinnerCon"
+                    android:id="@+id/spinnerCond"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:entries="@array/kondisi">
@@ -109,7 +109,7 @@
 
 
             <Button
-                android:id="@+id/btnchoose"
+                android:id="@+id/btnChooseImg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -139,7 +139,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/dropText"
+                android:id="@+id/etDescription"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"

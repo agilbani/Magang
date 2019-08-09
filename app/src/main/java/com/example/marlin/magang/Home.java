@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,9 +36,11 @@ public class Home extends AppCompatActivity {
 
     TextView ket;
     ImageView marlinLogo, image_view;
-    Spinner spinnerAPI, spinnerCon;
-    Button btnChoose, btnSend;
-    EditText dropText;
+    Spinner spinnerRoute, spinnerCond;
+    Button btnChooseImage, btnSend;
+    EditText etDescription;
+
+    Dialog alertsialog;
 
     AlertDialog.Builder alertDialog;
     LayoutInflater inflater;
@@ -79,16 +82,17 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        alertDialog = new Dialog(this);
+
 
         ket = (TextView) findViewById(R.id.ketDesc);
         marlinLogo = (ImageView) findViewById(R.id.imgMarlin);
-        dropText = (EditText) findViewById(R.id.dropText);
-        spinnerAPI = (Spinner) findViewById(R.id.spinnerAPI);
-        spinnerCon = (Spinner) findViewById(R.id.spinnerCon);
-        btnChoose = (Button) findViewById(R.id.btnchoose);
+        etDescription = (EditText) findViewById(R.id.etDescription);
+        spinnerRoute = (Spinner) findViewById(R.id.spinnerRoute);
+        spinnerCond = (Spinner) findViewById(R.id.spinnerCond);
+        btnChooseImage = (Button) findViewById(R.id.btnChooseImg);
         image_view = (ImageView) findViewById(R.id.image_view);
         btnSend = (Button) findViewById(R.id.btnSend);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -107,7 +111,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        btnChoose.setOnClickListener(new View.OnClickListener() {
+        btnChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -120,6 +124,13 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                String route = spinnerRoute.getSelectedItem().toString().trim();
+                Log.d("cek1", route);
+                String condition = spinnerCond.getSelectedItem().toString().trim();
+                Log.d("cek2", condition);
+                String description = etDescription.getText().toString().trim();
+                Log.d("cek", description);
+
 //                Toast.makeText(Home.this,"Success" , Toast.LENGTH_SHORT).show();
 //                Bundle bundle = new Bundle();
 //                bundle.putString("dataRoute", spinnerAPI.getSelectedItem().toString());
@@ -129,12 +140,8 @@ public class Home extends AppCompatActivity {
 //                intent.putExtras(bundle);
 //                startActivity(intent);
 
-//                String SpinnerApi = spinnerAPI.getSelectedItem().toString().trim();
-//                String SpinnerCond = spinnerCon.getSelectedItem().toString().trim();
-//                String DropText = dropText.getText().toString().trim();
 
-
-                ShowSendPopup();
+                ShowSendPopup(route, condition, description);
             }
         });
 
@@ -172,17 +179,28 @@ public class Home extends AppCompatActivity {
 //                startActivity(new Intent(this, Login.class));
 //         finish();
 //        }
-    public void ShowSendPopup() {
+    public void ShowSendPopup(String route, String condition, String description) {
         alertDialog = new AlertDialog.Builder(this);
         inflater = getLayoutInflater();
         dialogView = inflater.inflate(R.layout.activity_alert_dialog, null);
         alertDialog.setView(dialogView);
         alertDialog.setCancelable(true);
 
-        alertDialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+
+        final TextView tvIsiRoute = (TextView) dialogView.findViewById(R.id.tvIsiRoute);
+        final TextView tvIsiCondition = (TextView) dialogView.findViewById(R.id.tvIsiCondition);
+        final TextView tvIsiDescription = (TextView) dialogView.findViewById(R.id.tvIsiDescription);
+
+
+
+
+        tvIsiRoute.setText(route);
+        tvIsiCondition.setText(condition);
+        tvIsiDescription.setText(description);
+
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
                 startActivity(new Intent(Home.this, Home.class));
             }
         });
@@ -193,13 +211,15 @@ public class Home extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-//        alertDialog.setContentView(R.layout.activity_alert_dialog);
-//        tvRoute = (TextView) alertDialog.findViewById(R.id.tvRoute);
-//        tvIsiRoute = (TextView) alertDialog.findViewById(R.id.tvIsiRoute);
-//        tvCondition = (TextView) alertDialog.findViewById(R.id.tvCondition);
-//        tvIsiCondition = (TextView) alertDialog.findViewById(R.id.tvIsiCondition);
-//        tvDescription = (TextView) alertDialog.findViewById(R.id.tvDescription);
-//        tvIsiDescription = (TextView) alertDialog.findViewById(R.id.tvIsiDescription);
+
+
+//        alertsialog.setContentView(R.layout.activity_alert_dialog);
+//        tvRoute = (TextView) alertsialog.findViewById(R.id.tvRoute);
+//        tvIsiRoute = (TextView) alertsialog.findViewById(R.id.tvIsiRoute);
+//        tvCondition = (TextView) alertsialog.findViewById(R.id.tvCondition);
+//        tvIsiCondition = (TextView) alertsialog.findViewById(R.id.tvIsiCondition);
+//        tvDescription = (TextView) alertsialog.findViewById(R.id.tvDescription);
+//        tvIsiDescription = (TextView) alertsialog.findViewById(R.id.tvIsiDescription);
 //        btnOk = (Button) alertDialog.findViewById(R.id.btnOk);
 //        btnCancel = (Button) alertDialog.findViewById(R.id.btnCancel);
 
@@ -230,8 +250,10 @@ public class Home extends AppCompatActivity {
 //
 //            }
 //        });
+        //AlertDialog alertDialog = alertDialogBuilder.create();
 
         alertDialog.show();
+
     }
 
     @Override
@@ -242,7 +264,7 @@ public class Home extends AppCompatActivity {
         }
 
         this.doubleTapParam = true;
-        Toast.makeText(this, "Tap sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Ketuk sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
 
     }
 }
