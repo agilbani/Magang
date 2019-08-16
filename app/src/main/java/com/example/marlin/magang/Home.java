@@ -40,7 +40,7 @@ public class Home extends AppCompatActivity {
     Button btnChooseImage, btnSend;
     EditText etDescription;
 
-    Dialog alertsialog;
+
 
     AlertDialog.Builder alertDialog;
     LayoutInflater inflater;

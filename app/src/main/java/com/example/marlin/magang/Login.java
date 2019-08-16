@@ -1,5 +1,6 @@
 package com.example.marlin.magang;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +36,8 @@ public class Login extends AppCompatActivity {
     ImageView imageLogo;
     TextView editEmail, editPass, linkRegister;
     Button btnLogin;
-    ProgressBar loading;
+    ProgressDialog progressDialog;
+    //ProgressBar loading;
     private static String URL_Login = "https://marlinbooking.co.id/api/v1/login";
 
     SessionManager sessionManager;
@@ -53,7 +55,10 @@ public class Login extends AppCompatActivity {
         editPass = (TextView) findViewById(R.id.editPass);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         linkRegister = (TextView) findViewById(R.id.linkRegister);
-        loading = (ProgressBar) findViewById(R.id.loading);
+        progressDialog = new ProgressDialog(Login.this);
+      //  loading = (ProgressBar) findViewById(R.id.loading);
+
+        progressDialog.setMessage("please wait..");
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +69,7 @@ public class Login extends AppCompatActivity {
 
                 if (!mEmail.isEmpty() || !mPass.isEmpty()) {
                      Login(mEmail, mPass);
-                     loading.setVisibility(View.VISIBLE);
+        //             loading.setVisibility(View.VISIBLE);
 
 
                 } else {
@@ -101,6 +106,7 @@ public class Login extends AppCompatActivity {
                             sessionManager.createSession(mEmail, mNama);
 
                             Log.d("cek", jsonObject.getString("payload"));
+                            progressDialog.show();
                             Intent intent = new Intent(Login.this, Home.class);
                             Login.this.startActivity(intent);
                             finish();
@@ -116,7 +122,7 @@ public class Login extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(Login.this,"email atau password salah", Toast.LENGTH_SHORT).show();
                 btnLogin.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
+          //      loading.setVisibility(View.GONE);
             }
         })
         {
