@@ -48,7 +48,7 @@
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="25dp"
@@ -90,20 +90,6 @@
                     android:padding="10dp" />
 
                 <EditText
-                    android:id="@+id/etPhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="25dp"
-                    android:background="@drawable/text_view_background"
-                    android:elevation="20dp"
-                    android:ems="20"
-                    android:hint="phone"
-                    android:inputType="number"
-                    android:padding="10dp" />
-
-                <EditText
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -117,19 +103,6 @@
                     android:inputType="textPassword"
                     android:padding="10dp" />
 
-                <EditText
-                    android:id="@+id/etPassword2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="25dp"
-                    android:background="@drawable/text_view_background"
-                    android:elevation="20dp"
-                    android:ems="20"
-                    android:hint="re-password"
-                    android:inputType="textPassword"
-                    android:padding="10dp" />
 
                 <Button
                     android:id="@+id/btnRegister"

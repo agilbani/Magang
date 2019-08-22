@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
     Button btnLogin;
     ProgressDialog progressDialog;
     //ProgressBar loading;
-    private static String URL_Login = "https://marlinbooking.co.id/api/v1/login";
+    private static String URL_Login = "http://armpit.marlinbooking.co.id/api/auth/login";
 
     SessionManager sessionManager;
 
@@ -129,8 +129,8 @@ public class Login extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                Map<String, String> params = new HashMap<>();
-               params.put("email", mEmail);
-               params.put("password", mPass);
+               params.put("email", editEmail.getText().toString());
+               params.put("password", editPass.getText().toString());
                return params;
             }
         };

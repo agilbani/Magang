@@ -57,6 +57,8 @@ public class Home extends AppCompatActivity {
     final int kodeGalerry = 100;
     Uri imageUri;
 
+//    private static String URL_Home = " http://armpit.marlinbooking.co.id/";
+
     public boolean doubleTapParam = false;
 
 

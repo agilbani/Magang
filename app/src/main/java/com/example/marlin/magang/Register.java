@@ -27,12 +27,12 @@ import java.util.Map;
 
 public class Register extends AppCompatActivity {
 
-    EditText nama, email, password, password2, namaLast, phone;
+    EditText nama, email, password1, userName;
     ImageView imgMarlin;
     Button btnRegister;
 
 
-    static String URL_REGIST = "https://marlinbooking.co.id/api/v1/register";
+    static String URL_REGIST = "http://armpit.marlinbooking.co.id/api/auth/register";
 
 
 
@@ -42,11 +42,9 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.register);
 
         nama = (EditText) findViewById(R.id.etName);
+        userName = (EditText) findViewById(R.id.etNameLast);
         email = (EditText) findViewById(R.id.etEmail);
-        password = (EditText) findViewById(R.id.etPassword);
-        password2 = (EditText) findViewById(R.id.etPassword2);
-        namaLast = (EditText) findViewById(R.id.etNameLast);
-        phone = (EditText) findViewById(R.id.etPhone);
+        password1 = (EditText) findViewById(R.id.etPassword);
         imgMarlin = (ImageView) findViewById(R.id.imgMarlin);
         btnRegister = (Button) findViewById(R.id.btnRegister);
 
@@ -55,11 +53,9 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String FirstName = nama.getText().toString().trim();
-                String LastName = namaLast.getText().toString().trim();
-                String mPassword2 = password2.getText().toString().trim();
-                String mPassword1 = password.getText().toString().trim();
-                String mPhone = phone.getText().toString().trim();
+                String name = nama.getText().toString().trim();
+                String username = userName.getText().toString().trim();
+                String password = password1.getText().toString().trim();
                 String mEmail = email.getText().toString().trim();
 
                 Regist();
@@ -102,6 +98,7 @@ public class Register extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
                         Log.d("register error: ", error.toString());
                         btnRegister.setVisibility(View.VISIBLE);
                         Toast.makeText(Register.this, "Register Error !!" +error.toString(), Toast.LENGTH_SHORT).show();
@@ -113,13 +110,13 @@ public class Register extends AppCompatActivity {
         {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("first_name", nama.getText().toString() );
-                params.put("last_name", namaLast.getText().toString());
+
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("email", email.getText().toString());
-                params.put("phone_number", phone.getText().toString());
-                params.put("password",password.getText().toString());
-                params.put("password_confirmation", password2.getText().toString());
+                params.put("password",password1.getText().toString());
+                params.put("username", userName.getText().toString());
+                params.put("name", nama.getText().toString());
+
                 return params;
             }
         };
