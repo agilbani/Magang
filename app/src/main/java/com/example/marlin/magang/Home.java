@@ -1,36 +1,59 @@
 package com.example.marlin.magang;
 
 import android.app.Dialog;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
 
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.provider.ContactsContract;
+
+import android.os.Handler;
 import android.provider.MediaStore;
+import android.service.notification.Condition;
 import android.support.annotation.Nullable;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.EventLogTags;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.Route;
+
+import static android.R.layout.simple_spinner_item;
+
 
 public class Home extends AppCompatActivity {
 
@@ -40,15 +63,18 @@ public class Home extends AppCompatActivity {
     Button btnChooseImage, btnSend;
     EditText etDescription;
 
-
-
     AlertDialog.Builder alertDialog;
     LayoutInflater inflater;
     View dialogView;
     TextView tvRoute, tvIsiRoute, tvCondition, tvIsiCondition, tvDescription, tvIsiDescription;
     Button btnOk, btnCancel;
+    ProgressDialog progressDialog;
 
     SharedPreferences.Editor editor;
+
+    String Token, Trayek_Id, Company_Id, NamaRoute, NamaKondisi, Id;
+
+    SharedPreferences sharedPreferences;
 
     Toolbar toolbar;
 
@@ -56,11 +82,25 @@ public class Home extends AppCompatActivity {
 
     final int kodeGalerry = 100;
     Uri imageUri;
+    String TrayekURL = "http://armpit.marlinbooking.co.id/api/trayek";
 
-//    private static String URL_Home = " http://armpit.marlinbooking.co.id/";
+    String ReportURL = "http://armpit.marlinbooking.co.id/api/report";
+
+    public static final  String STATUS = "status";
+    public static final String ID = "id";
+    public static final String TOKEN = "token";
+    public static final String COMMENT = "comment";
+    public  static  final  String TRAYEK_ID = "trayek_id";
+    public  static final String COMPANY_ID = "company_id";
+
+
+    private ArrayList<SpinnerModel> SpinnerModelArrayList;
+    private ArrayList<String> trayekName = new ArrayList<String>();
+    private ArrayList<String> trayekID = new ArrayList<String>();
+    private ArrayList<String> trayekCompanyID = new ArrayList<String>();
+    private ArrayList<String> trayekLokasi = new ArrayList<String>();
 
     public boolean doubleTapParam = false;
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -78,22 +118,66 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
+
         sessionManager = new SessionManager(this);
         sessionManager.checkLogin();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
-
+        progressDialog = new ProgressDialog(Home.this);
         ket = (TextView) findViewById(R.id.ketDesc);
         marlinLogo = (ImageView) findViewById(R.id.imgMarlin);
         etDescription = (EditText) findViewById(R.id.etDescription);
+
         spinnerRoute = (Spinner) findViewById(R.id.spinnerRoute);
+
+        loadSpinnerData();
+
+        sharedPreferences = getSharedPreferences("LOGIN",MODE_PRIVATE);
+        Id = sharedPreferences.getString("ID", "default_id");
+        Token = sharedPreferences.getString("TOKEN", "default_token");
+        Log.d("Token", Token);
+
+        spinnerRoute.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                String nama = spinnerRoute.getItemAtPosition(spinnerRoute.getSelectedItemPosition()).toString();
+//                Toast.makeText(getApplicationContext(),nama, Toast.LENGTH_SHORT).show();
+                NamaRoute = SpinnerModelArrayList.get(position).getNama();
+                Trayek_Id = SpinnerModelArrayList.get(position).getId();
+                Company_Id = SpinnerModelArrayList.get(position).getCompany_id();
+
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
         spinnerCond = (Spinner) findViewById(R.id.spinnerCond);
         btnChooseImage = (Button) findViewById(R.id.btnChooseImg);
         image_view = (ImageView) findViewById(R.id.image_view);
         btnSend = (Button) findViewById(R.id.btnSend);
+
+
+        spinnerCond.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                 NamaKondisi = spinnerCond.getItemAtPosition(spinnerCond.getSelectedItemPosition()).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -102,14 +186,7 @@ public class Home extends AppCompatActivity {
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // sessionManager.logout();
-//                Intent logoutintent = new Intent(this, Login.class);
-//                startActivity(logoutintent);
-//                SharedPreferences loginSharedPreferences;
-//                //loginSharedPreferences = getSharedPreferences( Login.MyPREFERENCES, Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = loginSharedPreferences.edit();
-//                editor.putString("UniqueId", "");
-//                editor.commit(); finish();
+
             }
         });
 
@@ -126,6 +203,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 String route = spinnerRoute.getSelectedItem().toString().trim();
                 Log.d("cek1", route);
                 String condition = spinnerCond.getSelectedItem().toString().trim();
@@ -133,28 +211,77 @@ public class Home extends AppCompatActivity {
                 String description = etDescription.getText().toString().trim();
                 Log.d("cek", description);
 
-//                Toast.makeText(Home.this,"Success" , Toast.LENGTH_SHORT).show();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("dataRoute", spinnerAPI.getSelectedItem().toString());
-//                bundle.putString("dataConditional", spinnerCon.getSelectedItem().toString());
-//                bundle.putString("dataDescription", dropText.getText().toString());
-//                Intent intent = new Intent(Home.this, Home.class);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-
-
                 ShowSendPopup(route, condition, description);
+
             }
         });
 
     }
 
+    private void loadSpinnerData() {
+        Log.d("======================", ">>" + tvRoute);
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, TrayekURL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("coba", ">>" + response);
+                    try {
+                        JSONObject obj = new JSONObject(response);
+                        if (obj.optString("success").equals("true")) {
+                            SpinnerModelArrayList = new ArrayList<>();
+                            JSONArray dataArray = obj.getJSONArray("payload");
+                            for (int i = 0; i < dataArray.length(); i++) {
+                                SpinnerModel spinnerModel = new SpinnerModel();
+                                JSONObject dataobj = dataArray.getJSONObject(i);
+
+                                spinnerModel.setId(dataobj.getString("id"));
+                                spinnerModel.setCompany_id(dataobj.getString("company_id"));
+                                spinnerModel.setNama(dataobj.getString("nama"));
+                                spinnerModel.setLokasi(dataobj.getString("lokasi"));
+
+                                SpinnerModelArrayList.add(spinnerModel);
+                            }
+
+                            for (int i = 0; i < SpinnerModelArrayList.size(); i++) {
+                                trayekName.add(SpinnerModelArrayList.get(i).getNama().toString());
+                                trayekID.add(SpinnerModelArrayList.get(i).getId().toString());
+                                trayekCompanyID.add(SpinnerModelArrayList.get(i).getCompany_id().toString());
+//                                trayekLokasi.add(SpinnerModelArrayList.get(i).getLokasi().toString());
+                            }
+
+                            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(Home.this, simple_spinner_item, trayekName);
+                            spinnerArrayAdapter.setDropDownViewResource(simple_spinner_item);
+                            spinnerRoute.setAdapter(spinnerArrayAdapter);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+    })
+            {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap headers = new HashMap();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjE3MTVmNTczYjJjNjQzNTg4NDFhNDI3ZTcxMjIzNWYzZTYwYzdjYzg5ODAyNTU2NGIyM2Q4ZDczZTEzNDNhYjAzNzljYmY0MTk1ZjMwMDUxIn0.eyJhdWQiOiI1IiwianRpIjoiMTcxNWY1NzNiMmM2NDM1ODg0MWE0MjdlNzEyMjM1ZjNlNjBjN2NjODk4MDI1NTY0YjIzZDhkNzNlMTM0M2FiMDM3OWNiZjQxOTVmMzAwNTEiLCJpYXQiOjE1NjY3OTU5MjMsIm5iZiI6MTU2Njc5NTkyMywiZXhwIjoxNTk4NDE4MzIzLCJzdWIiOiIzMzNhNzViOC1jNGFhLTExZTktYWQzOC0wMjQyYTM5ZWEyMTQiLCJzY29wZXMiOltdfQ.Nk7KpS-cNL5O1zbO2BBsyHQFDLsy-1V7JR1GfAuGG_Ja6ms9iYzVeE_2WMF92F7eHZHr38ed-pOiD0efCtcAqBzSBcUQrc8IhKQTewuK8R32EQiCzs8otLBitUQHpFRzK0eUDhKMMy9WH6kFJjjlt3iW7Dp3F8h5SkPDgRatNVzx-Hhi7ITV-eyj7SG1u0FUc-xsHVjwT7dKt2zelsKdqzdvevigEh5pT2VmPC80TLvkQPdqA6P1EMvfLxrbNLkjMNDeJQZrn6rQA1YcQqGiYAKTrT2l7DL6b0lg9EAbTLhZDV_ur-UDt-ttZyJmaBESETT68e8yKM-V71TidZVkCc_3NIjqJKCNVmKbvyQJ-3c2ivI7iGCLygF13d5RauhuQQ-tDFZUNz1aiWvImuSwwKByv9Mlc8ntJLSLPyrMrjyDMXeKEw9vrktfkdj-rZjwO2_eEcDAnHlYUPXUou26gjES-HiH-slnMgVNlZmURcRJgMYsfI9arulSiYedHsFjKzbX3BEq-OzPbVqzn8X2M9BP4hpt4GEi1NnRVA0hpgl5ivnOx5bVsyRVYgwGZNYbLNf4QCjQk8-V0NrKnovrch7mhB47AZCTElwPzT2P6wReEMcZ3AqH_uIYkq1d1kU_xB_tu6oYYi9X8qwF3ZSyavrBGN3Bl2aFr0IkgnMiUpw");
+                    return headers;
+                }
+            };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
 
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -176,11 +303,7 @@ public class Home extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //        private void logout() {
-//                sessionManager.logout();
-//                startActivity(new Intent(this, Login.class));
-//         finish();
-//        }
+
     public void ShowSendPopup(String route, String condition, String description) {
         alertDialog = new AlertDialog.Builder(this);
         inflater = getLayoutInflater();
@@ -188,22 +311,41 @@ public class Home extends AppCompatActivity {
         alertDialog.setView(dialogView);
         alertDialog.setCancelable(true);
 
-
         final TextView tvIsiRoute = (TextView) dialogView.findViewById(R.id.tvIsiRoute);
         final TextView tvIsiCondition = (TextView) dialogView.findViewById(R.id.tvIsiCondition);
         final TextView tvIsiDescription = (TextView) dialogView.findViewById(R.id.tvIsiDescription);
 
-
-
-
-        tvIsiRoute.setText(route);
+        tvIsiRoute.setText(NamaRoute);
         tvIsiCondition.setText(condition);
         tvIsiDescription.setText(description);
 
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(Home.this, Home.class));
+
+                sendData();
+
+                progressDialog.setMessage("Please wait...");
+                progressDialog.show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent dialogg = new Intent(Home.this, Home.class);
+                        startActivity(dialogg);
+                    }
+                }, 500);
+
+
+                etDescription.setText("");
+
+                dialog.dismiss();
+
+//                spinnerRoute.setAdapter(null);
+//                spinnerCond.setAdapter(null);
+
+
+
             }
         });
 
@@ -214,59 +356,79 @@ public class Home extends AppCompatActivity {
             }
         });
 
-
-//        alertsialog.setContentView(R.layout.activity_alert_dialog);
-//        tvRoute = (TextView) alertsialog.findViewById(R.id.tvRoute);
-//        tvIsiRoute = (TextView) alertsialog.findViewById(R.id.tvIsiRoute);
-//        tvCondition = (TextView) alertsialog.findViewById(R.id.tvCondition);
-//        tvIsiCondition = (TextView) alertsialog.findViewById(R.id.tvIsiCondition);
-//        tvDescription = (TextView) alertsialog.findViewById(R.id.tvDescription);
-//        tvIsiDescription = (TextView) alertsialog.findViewById(R.id.tvIsiDescription);
-//        btnOk = (Button) alertDialog.findViewById(R.id.btnOk);
-//        btnCancel = (Button) alertDialog.findViewById(R.id.btnCancel);
-
-
-//        if(getIntent().getExtras()!=null){
-//            Bundle bundle = getIntent().getExtras();
-//            tvIsiRoute.setText(bundle.getString("dataRoute"));
-//            tvIsiCondition.setText(bundle.getString("dataConditional"));
-//            tvIsiDescription.setText(bundle.getString("dataDescription"));
-//        }
-//        else{
-//            tvIsiRoute.setText(getIntent().getStringExtra("dataRoute"));
-//            tvIsiCondition.setText(getIntent().getStringExtra("dataConditional"));
-//            tvIsiDescription.setText(getIntent().getStringExtra("dataDescription"));
-//          }
-
-//        btnOk.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               startActivity(new Intent(Home.this, Home.class));
-//            }
-//        });
-//
-//        btnCancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               alertDialog.cancel();
-//
-//            }
-//        });
-        //AlertDialog alertDialog = alertDialogBuilder.create();
-
         alertDialog.show();
 
     }
 
-    @Override
-    public void onBackPressed() {
+    private void sendData() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ReportURL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("oke", response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            String success = jsonObject.getString("message");
+
+                            if (jsonObject.optString("success").equals("true")) {
+                                Toast.makeText(Home.this, "Send Data Success", Toast.LENGTH_SHORT).show();
+                              // finish();
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(Home.this, "Send Data Error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Kenapaaaa: ", error.toString());
+                        error.printStackTrace();
+                        Toast.makeText(Home.this, "send data error", Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+
+                params.put("trayek_id", Trayek_Id);
+                params.put("company_id", Company_Id);
+                params.put("checker", Id);
+                params.put("status", NamaKondisi);
+                params.put("comments", etDescription.getText().toString());
+
+                Log.d("COBAAA", params.toString());
+                return params;
+            }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+             //   headers.put("Content-Type", "application/json");
+                headers.put("Accept", "application/json");
+                headers.put("Authorization","Bearer " + Token);
+                return headers;
+        }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+        }
+@Override
+public void onBackPressed() {
         if (doubleTapParam) {
-            super.onBackPressed();
-            return;
+        super.onBackPressed();
+        return;
         }
 
         this.doubleTapParam = true;
         Toast.makeText(this, "Ketuk sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
 
-    }
-}
+        }
+        }

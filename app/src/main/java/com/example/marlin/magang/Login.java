@@ -102,8 +102,10 @@ public class Login extends AppCompatActivity {
                             String success = jsonObject.getString("success");
                             String mNama = jsonObject.getJSONObject("payload").getString("name");
                             String mEmail = jsonObject.getJSONObject("payload").getString("email");
+                            String mToken = jsonObject.getJSONObject("payload").getString("token");
+                            String mId = jsonObject.getJSONObject("payload").getString("id");
 
-                            sessionManager.createSession(mEmail, mNama);
+                            sessionManager.createSession(mEmail, mNama, mId, mToken);
 
                             Log.d("cek", jsonObject.getString("payload"));
                             progressDialog.show();

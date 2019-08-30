@@ -17,7 +17,11 @@ public class SessionManager {
     private static final String PREF_NAME = "LOGIN";
     private static final String LOGIN = "IS_LOGIN";
     public static final String EMAIL = "EMAIL";
+    public static final String ID = "ID";
     public static final String NAME = "NAME";
+    public static final String TOKEN = "TOKEN";
+    public static final String CHECKER = "CHECKER";
+
 
     public SessionManager(Context context) {
         this.context = context;
@@ -25,11 +29,13 @@ public class SessionManager {
         editor = sharedPreferences.edit();
     }
 
-    public void createSession( String mEmail, String mName) {
+    public void createSession( String mEmail, String mName, String mId, String mToken) {
 
         editor.putBoolean(LOGIN, true);
         editor.putString(EMAIL, mEmail);
         editor.putString(NAME, mName);
+        editor.putString(ID, mId);
+        editor.putString(TOKEN, mToken);
         editor.apply();
 
     }
