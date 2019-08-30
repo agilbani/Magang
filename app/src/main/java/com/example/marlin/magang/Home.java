@@ -170,6 +170,13 @@ public class Home extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                if (
+                        parent.getItemAtPosition(position).equals("--Select Condition--")) {
+                }else {
+                    String item = parent.getItemAtPosition(position).toString();
+                    Toast.makeText(parent.getContext(),"Selected: " +item, Toast.LENGTH_SHORT).show();
+                }
+
                  NamaKondisi = spinnerCond.getItemAtPosition(spinnerCond.getSelectedItemPosition()).toString();
             }
 
@@ -200,22 +207,32 @@ public class Home extends AppCompatActivity {
 
 
         btnSend.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
-
-                String route = spinnerRoute.getSelectedItem().toString().trim();
-                Log.d("cek1", route);
-                String condition = spinnerCond.getSelectedItem().toString().trim();
-                Log.d("cek2", condition);
-                String description = etDescription.getText().toString().trim();
-                Log.d("cek", description);
-
-                ShowSendPopup(route, condition, description);
+                Validasi();
 
             }
         });
 
+    }
+
+    private void Validasi() {
+        if(NamaKondisi.equals("--Select Condition--")){
+            Toast.makeText(this, "Silahkan Pilih Kondisi Terlebih dahulu", Toast.LENGTH_SHORT).show();
+
+        }else{
+            String route = spinnerRoute.getSelectedItem().toString().trim();
+            Log.d("cek1", route);
+            String condition = spinnerCond.getSelectedItem().toString().trim();
+            Log.d("cek2", condition);
+            String description = etDescription.getText().toString().trim();
+            Log.d("cek", description);
+
+            ShowSendPopup(route, condition, description);
+
+        }
     }
 
     private void loadSpinnerData() {
