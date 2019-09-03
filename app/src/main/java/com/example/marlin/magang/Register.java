@@ -42,7 +42,7 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.register);
 
         nama = (EditText) findViewById(R.id.etName);
-        userName = (EditText) findViewById(R.id.etNameLast);
+        userName = (EditText) findViewById(R.id.etUsername);
         email = (EditText) findViewById(R.id.etEmail);
         password1 = (EditText) findViewById(R.id.etPassword);
         imgMarlin = (ImageView) findViewById(R.id.imgMarlin);
@@ -59,9 +59,8 @@ public class Register extends AppCompatActivity {
                 String mEmail = email.getText().toString().trim();
 
                 Regist();
-                Intent intent = new Intent(Register.this, Login.class);
-                Register.this.startActivity(intent);
                 finish();
+
             }
         });
 
@@ -81,14 +80,16 @@ public class Register extends AppCompatActivity {
                             String success = jsonObject.getString("message");
 
 
-                            if(success.equals("1")){
+                            if(success.equals("true")){
                                 Toast.makeText(Register.this, "Register success !!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Register.this, Login.class);
+                                startActivity(intent);
                                 finish();
                             }
 
                         }catch (JSONException e){
                             e.printStackTrace();
-                            Toast.makeText(Register.this, "Register Error !!"+ e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Register.this, "Data already exist", Toast.LENGTH_SHORT).show();
 
                             btnRegister.setVisibility(View.VISIBLE);
                         }
@@ -101,7 +102,7 @@ public class Register extends AppCompatActivity {
                         error.printStackTrace();
                         Log.d("register error: ", error.toString());
                         btnRegister.setVisibility(View.VISIBLE);
-                        Toast.makeText(Register.this, "Register Error !!" +error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Register.this, "Register Error !!" , Toast.LENGTH_SHORT).show();
 
                     }
                 })

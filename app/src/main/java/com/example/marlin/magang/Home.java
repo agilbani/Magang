@@ -7,6 +7,8 @@ import android.content.Intent;
 
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 
 import android.os.Handler;
@@ -18,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.EventLogTags;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +49,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,7 +80,7 @@ public class Home extends AppCompatActivity {
 
     SharedPreferences.Editor editor;
 
-    String Token, Trayek_Id, Company_Id, NamaRoute, NamaKondisi, Id;
+    String Token, Trayek_Id, Company_Id, NamaRoute, NamaKondisi, Id, base64;
 
     SharedPreferences sharedPreferences;
 
@@ -86,12 +94,14 @@ public class Home extends AppCompatActivity {
 
     String ReportURL = "http://armpit.marlinbooking.co.id/api/report";
 
+
     public static final  String STATUS = "status";
     public static final String ID = "id";
     public static final String TOKEN = "token";
     public static final String COMMENT = "comment";
     public  static  final  String TRAYEK_ID = "trayek_id";
     public  static final String COMPANY_ID = "company_id";
+    public static final String IMAGE_STRING = "image";
 
 
     private ArrayList<SpinnerModel> SpinnerModelArrayList;
@@ -102,16 +112,45 @@ public class Home extends AppCompatActivity {
 
     public boolean doubleTapParam = false;
 
+    public Home() throws FileNotFoundException {
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == kodeGalerry && resultCode == RESULT_OK) {
-            imageUri = data.getData();
+//        if (requestCode == kodeGalerry && resultCode == RESULT_OK) {
+//            imageUri = data.getData();
+//            image_view.setImageURI(imageUri);
+//            image_view.setVisibility(image_view.VISIBLE);
+//
+//        }
+
+        Uri imageUri = data.getData();
+        try{
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
             image_view.setImageURI(imageUri);
             image_view.setVisibility(image_view.VISIBLE);
+            Toast.makeText(Home.this, "Image Saved", Toast.LENGTH_LONG).show();
+            String base64 = convert(bitmap);
 
+            byte[] decodeByteArray = Base64.decode(base64, Base64.NO_WRAP);
+            Bitmap decodeBitmap = BitmapFactory.decodeByteArray(decodeByteArray, 0, decodeByteArray.length);
+            Log.d("===IMAGE===", base64);
+
+            image_view.setImageBitmap(decodeBitmap);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(Home.this, "Failed to get image from gallery", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private String convert(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+        return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+
     }
 
 
@@ -159,10 +198,21 @@ public class Home extends AppCompatActivity {
             }
         });
 
-
         spinnerCond = (Spinner) findViewById(R.id.spinnerCond);
         btnChooseImage = (Button) findViewById(R.id.btnChooseImg);
         image_view = (ImageView) findViewById(R.id.image_view);
+
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//        byte[] imageBytes = baos.toByteArray();
+//        String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+//
+//        imageBytes = Base64.decode(imageString, Base64.DEFAULT);
+//        Bitmap decodeImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+//        image_view.setImageBitmap(decodeImage);
+
+
         btnSend = (Button) findViewById(R.id.btnSend);
 
 
@@ -340,7 +390,9 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+
                 sendData();
+
 
                 progressDialog.setMessage("Please wait...");
                 progressDialog.show();
@@ -376,6 +428,8 @@ public class Home extends AppCompatActivity {
         alertDialog.show();
 
     }
+
+
 
     private void sendData() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ReportURL,
@@ -418,6 +472,7 @@ public class Home extends AppCompatActivity {
                 params.put("checker", Id);
                 params.put("status", NamaKondisi);
                 params.put("comments", etDescription.getText().toString());
+                params.put("image", base64);
 
                 Log.d("COBAAA", params.toString());
                 return params;
