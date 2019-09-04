@@ -116,13 +116,13 @@ public class Login extends AppCompatActivity {
                         } catch (JSONException e) {
                             btnLogin.setVisibility(View.VISIBLE);
                             e.printStackTrace();
-                            Toast.makeText(Login.this,"Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this,"email atau password salah", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Login.this,"email atau password salah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this,"login error", Toast.LENGTH_SHORT).show();
                 btnLogin.setVisibility(View.VISIBLE);
           //      loading.setVisibility(View.GONE);
             }
