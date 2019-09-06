@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 
 import android.os.Handler;
@@ -80,7 +81,9 @@ public class Home extends AppCompatActivity {
 
     SharedPreferences.Editor editor;
 
-    String Token, Trayek_Id, Company_Id, NamaRoute, NamaKondisi, Id, base64;
+    String Token, Trayek_Id, Company_Id, NamaRoute, NamaKondisi, Id;
+
+    String base64 = null;
 
     SharedPreferences sharedPreferences;
 
@@ -93,9 +96,6 @@ public class Home extends AppCompatActivity {
     String TrayekURL = "http://armpit.marlinbooking.co.id/api/trayek";
 
     String ReportURL = "http://armpit.marlinbooking.co.id/api/report";
-
-
-
 
     private ArrayList<SpinnerModel> SpinnerModelArrayList;
     private ArrayList<String> trayekName = new ArrayList<String>();
@@ -110,7 +110,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+//
 //        if (requestCode == kodeGalerry && resultCode == RESULT_OK) {
 //            imageUri = data.getData();
 //            image_view.setImageURI(imageUri);
@@ -124,13 +124,15 @@ public class Home extends AppCompatActivity {
             image_view.setImageURI(imageUri);
             image_view.setVisibility(image_view.VISIBLE);
             Toast.makeText(Home.this, "Image Selected ", Toast.LENGTH_LONG).show();
-            String base64 = convert(bitmap);
+            base64 = convert(bitmap);
 
             byte[] decodeByteArray = Base64.decode(base64, Base64.NO_WRAP);
             Bitmap decodeBitmap = BitmapFactory.decodeByteArray(decodeByteArray, 0, decodeByteArray.length);
             Log.d("===IMAGE===", base64);
 
             image_view.setImageBitmap(decodeBitmap);
+
+            sendData();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -145,11 +147,8 @@ public class Home extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
 
         sessionManager = new SessionManager(this);
         sessionManager.checkLogin();
@@ -443,20 +442,24 @@ public class Home extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
 
                 params.put("trayek_id", Trayek_Id);
+                Log.d("COBAAA1", params.toString());
                 params.put("company_id", Company_Id);
+                Log.d("COBAAA2", params.toString());
                 params.put("checker", Id);
+                Log.d("COBAAA3", params.toString());
                 params.put("status", NamaKondisi);
+                Log.d("COBAAA4", params.toString());
                 params.put("comments", etDescription.getText().toString());
-//                params.put("image", base64);
-
-                Log.d("COBAAA", params.toString());
+                Log.d("COBAAA5", params.toString());
+                params.put("image", base64);
+                Log.d("COBAAA6", params.toString());
                 return params;
             }
 
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> headers = new HashMap<>();
-             //   headers.put("Content-Type", "application/json");
+//                headers.put("Content-Type", "application/json");
                 headers.put("Accept", "application/json");
                 headers.put("Authorization","Bearer " + Token);
                 return headers;
