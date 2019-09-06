@@ -258,7 +258,6 @@ public class Home extends AppCompatActivity {
 
 
         btnSend.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
 
@@ -282,7 +281,6 @@ public class Home extends AppCompatActivity {
             Log.d("cek", description);
 
             ShowSendPopup(route, condition, description);
-
         }
     }
 
@@ -391,9 +389,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-
                 sendData();
-
 
                 progressDialog.setMessage("Please wait...");
                 progressDialog.show();
@@ -414,8 +410,6 @@ public class Home extends AppCompatActivity {
 //                spinnerRoute.setAdapter(null);
 //                spinnerCond.setAdapter(null);
 
-
-
             }
         });
 
@@ -429,8 +423,6 @@ public class Home extends AppCompatActivity {
         alertDialog.show();
 
     }
-
-
 
     private void sendData() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ReportURL,
@@ -493,15 +485,15 @@ public class Home extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
         }
-@Override
-public void onBackPressed() {
-        if (doubleTapParam) {
-        super.onBackPressed();
-        return;
-        }
+        @Override
+            public void onBackPressed() {
+                if (doubleTapParam) {
+                super.onBackPressed();
+                return;
+            }
 
         this.doubleTapParam = true;
         Toast.makeText(this, "Ketuk sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
 
         }
-        }
+}
