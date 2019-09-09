@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 
 import android.os.Handler;
@@ -81,7 +82,9 @@ public class Home extends AppCompatActivity {
 
     SharedPreferences.Editor editor;
 
-    String Token, Trayek_Id, Company_Id, NamaRoute, NamaKondisi, Id, base64;
+    String Token, Trayek_Id, Company_Id, NamaRoute, NamaKondisi, Id;
+
+    String base64 = null;
 
     SharedPreferences sharedPreferences;
 
@@ -95,21 +98,10 @@ public class Home extends AppCompatActivity {
 
     String ReportURL = "http://armpit.marlinbooking.co.id/api/report";
 
-
-    public static final  String STATUS = "status";
-    public static final String ID = "id";
-    public static final String TOKEN = "token";
-    public static final String COMMENT = "comment";
-    public  static  final  String TRAYEK_ID = "trayek_id";
-    public  static final String COMPANY_ID = "company_id";
-    public static final String IMAGE_STRING = "image";
-
-
     private ArrayList<SpinnerModel> SpinnerModelArrayList;
     private ArrayList<String> trayekName = new ArrayList<String>();
     private ArrayList<String> trayekID = new ArrayList<String>();
     private ArrayList<String> trayekCompanyID = new ArrayList<String>();
-    private ArrayList<String> trayekLokasi = new ArrayList<String>();
 
     public boolean doubleTapParam = false;
 
@@ -119,7 +111,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+//
 //        if (requestCode == kodeGalerry && resultCode == RESULT_OK) {
 //            imageUri = data.getData();
 //            image_view.setImageURI(imageUri);
@@ -132,14 +124,16 @@ public class Home extends AppCompatActivity {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
             image_view.setImageURI(imageUri);
             image_view.setVisibility(image_view.VISIBLE);
-            Toast.makeText(Home.this, "Image Saved", Toast.LENGTH_LONG).show();
-            String base64 = convert(bitmap);
+            Toast.makeText(Home.this, "Image Selected ", Toast.LENGTH_LONG).show();
+            base64 = convert(bitmap);
 
             byte[] decodeByteArray = Base64.decode(base64, Base64.NO_WRAP);
             Bitmap decodeBitmap = BitmapFactory.decodeByteArray(decodeByteArray, 0, decodeByteArray.length);
             Log.d("===IMAGE===", base64);
 
             image_view.setImageBitmap(decodeBitmap);
+
+            sendData();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -154,11 +148,8 @@ public class Home extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
 
         sessionManager = new SessionManager(this);
         sessionManager.checkLogin();
@@ -183,18 +174,14 @@ public class Home extends AppCompatActivity {
         spinnerRoute.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//                String nama = spinnerRoute.getItemAtPosition(spinnerRoute.getSelectedItemPosition()).toString();
-//                Toast.makeText(getApplicationContext(),nama, Toast.LENGTH_SHORT).show();
                 NamaRoute = SpinnerModelArrayList.get(position).getNama();
                 Trayek_Id = SpinnerModelArrayList.get(position).getId();
                 Company_Id = SpinnerModelArrayList.get(position).getCompany_id();
-
             }
 
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            public void onNothingSelected(AdapterView<?> adap    terView) {
 
             }
         });
@@ -202,18 +189,6 @@ public class Home extends AppCompatActivity {
         spinnerCond = (Spinner) findViewById(R.id.spinnerCond);
         btnChooseImage = (Button) findViewById(R.id.btnChooseImg);
         image_view = (ImageView) findViewById(R.id.image_view);
-
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//        byte[] imageBytes = baos.toByteArray();
-//        String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-//
-//        imageBytes = Base64.decode(imageString, Base64.DEFAULT);
-//        Bitmap decodeImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-//        image_view.setImageBitmap(decodeImage);
-
-
         btnSend = (Button) findViewById(R.id.btnSend);
 
 
@@ -289,7 +264,7 @@ public class Home extends AppCompatActivity {
             StringRequest stringRequest = new StringRequest(Request.Method.GET, TrayekURL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Log.d("coba", ">>" + response);
+                    Log.d("RESPONNNNNNNNNNN", ">>" + response);
                     try {
                         JSONObject obj = new JSONObject(response);
                         if (obj.optString("success").equals("true")) {
@@ -311,7 +286,6 @@ public class Home extends AppCompatActivity {
                                 trayekName.add(SpinnerModelArrayList.get(i).getNama().toString());
                                 trayekID.add(SpinnerModelArrayList.get(i).getId().toString());
                                 trayekCompanyID.add(SpinnerModelArrayList.get(i).getCompany_id().toString());
-//                                trayekLokasi.add(SpinnerModelArrayList.get(i).getLokasi().toString());
                             }
 
                             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(Home.this, simple_spinner_item, trayekName);
@@ -335,7 +309,7 @@ public class Home extends AppCompatActivity {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap headers = new HashMap();
                     headers.put("Content-Type", "application/json");
-                    headers.put("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjE3MTVmNTczYjJjNjQzNTg4NDFhNDI3ZTcxMjIzNWYzZTYwYzdjYzg5ODAyNTU2NGIyM2Q4ZDczZTEzNDNhYjAzNzljYmY0MTk1ZjMwMDUxIn0.eyJhdWQiOiI1IiwianRpIjoiMTcxNWY1NzNiMmM2NDM1ODg0MWE0MjdlNzEyMjM1ZjNlNjBjN2NjODk4MDI1NTY0YjIzZDhkNzNlMTM0M2FiMDM3OWNiZjQxOTVmMzAwNTEiLCJpYXQiOjE1NjY3OTU5MjMsIm5iZiI6MTU2Njc5NTkyMywiZXhwIjoxNTk4NDE4MzIzLCJzdWIiOiIzMzNhNzViOC1jNGFhLTExZTktYWQzOC0wMjQyYTM5ZWEyMTQiLCJzY29wZXMiOltdfQ.Nk7KpS-cNL5O1zbO2BBsyHQFDLsy-1V7JR1GfAuGG_Ja6ms9iYzVeE_2WMF92F7eHZHr38ed-pOiD0efCtcAqBzSBcUQrc8IhKQTewuK8R32EQiCzs8otLBitUQHpFRzK0eUDhKMMy9WH6kFJjjlt3iW7Dp3F8h5SkPDgRatNVzx-Hhi7ITV-eyj7SG1u0FUc-xsHVjwT7dKt2zelsKdqzdvevigEh5pT2VmPC80TLvkQPdqA6P1EMvfLxrbNLkjMNDeJQZrn6rQA1YcQqGiYAKTrT2l7DL6b0lg9EAbTLhZDV_ur-UDt-ttZyJmaBESETT68e8yKM-V71TidZVkCc_3NIjqJKCNVmKbvyQJ-3c2ivI7iGCLygF13d5RauhuQQ-tDFZUNz1aiWvImuSwwKByv9Mlc8ntJLSLPyrMrjyDMXeKEw9vrktfkdj-rZjwO2_eEcDAnHlYUPXUou26gjES-HiH-slnMgVNlZmURcRJgMYsfI9arulSiYedHsFjKzbX3BEq-OzPbVqzn8X2M9BP4hpt4GEi1NnRVA0hpgl5ivnOx5bVsyRVYgwGZNYbLNf4QCjQk8-V0NrKnovrch7mhB47AZCTElwPzT2P6wReEMcZ3AqH_uIYkq1d1kU_xB_tu6oYYi9X8qwF3ZSyavrBGN3Bl2aFr0IkgnMiUpw");
+                    headers.put("Authorization", "Bearer " + Token);
                     return headers;
                 }
             };
@@ -461,20 +435,24 @@ public class Home extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
 
                 params.put("trayek_id", Trayek_Id);
+                Log.d("COBAAA1", params.toString());
                 params.put("company_id", Company_Id);
+                Log.d("COBAAA2", params.toString());
                 params.put("checker", Id);
+                Log.d("COBAAA3", params.toString());
                 params.put("status", NamaKondisi);
+                Log.d("COBAAA4", params.toString());
                 params.put("comments", etDescription.getText().toString());
+                Log.d("COBAAA5", params.toString());
                 params.put("image", base64);
-
-                Log.d("COBAAA", params.toString());
+                Log.d("COBAAA6", params.toString());
                 return params;
             }
 
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> headers = new HashMap<>();
-             //   headers.put("Content-Type", "application/json");
+//                headers.put("Content-Type", "application/json");
                 headers.put("Accept", "application/json");
                 headers.put("Authorization","Bearer " + Token);
                 return headers;
