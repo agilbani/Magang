@@ -38,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -104,19 +105,10 @@ public class Home extends AppCompatActivity {
 
     public boolean doubleTapParam = false;
 
-    public Home() throws FileNotFoundException {
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == kodeGalerry && resultCode == RESULT_OK) {
-//            imageUri = data.getData();
-//            image_view.setImageURI(imageUri);
-//            image_view.setVisibility(image_view.VISIBLE);
-//
-//        }
 
         Uri imageUri = data.getData();
         try{
@@ -430,6 +422,13 @@ public class Home extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        NetworkResponse networkResponse = error.networkResponse;
+                        if(networkResponse != null && networkResponse.data != null) {
+                            String errorString = new String (networkResponse.data);
+                            Log.d("ERRORRRR", errorString);
+                        }
+
+
                         Log.d("Kenapaaaa: ", error.toString());
                         error.printStackTrace();
                         Toast.makeText(Home.this, "send data error", Toast.LENGTH_SHORT).show();
@@ -442,24 +441,19 @@ public class Home extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
 
                 params.put("trayek_id", Trayek_Id);
-                Log.d("COBAAA1", params.toString());
                 params.put("company_id", Company_Id);
-                Log.d("COBAAA2", params.toString());
                 params.put("checker", Id);
-                Log.d("COBAAA3", params.toString());
                 params.put("status", NamaKondisi);
-                Log.d("COBAAA4", params.toString());
                 params.put("comments", etDescription.getText().toString());
-                Log.d("COBAAA5", params.toString());
-                params.put("image", base64);
-                Log.d("COBAAA6", params.toString());
+                params.put("image", "data:image/png;base64," + base64);
+
+                Log.d("PARAMS", params.toString());
                 return params;
             }
 
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> headers = new HashMap<>();
-//                headers.put("Content-Type", "application/json");
                 headers.put("Accept", "application/json");
                 headers.put("Authorization","Bearer " + Token);
                 return headers;
@@ -470,15 +464,15 @@ public class Home extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
         }
-@Override
-public void onBackPressed() {
-        if (doubleTapParam) {
-        super.onBackPressed();
-        return;
-        }
+            @Override
+            public void onBackPressed() {
+                    if (doubleTapParam) {
+                    super.onBackPressed();
+                    return;
+                    }
 
         this.doubleTapParam = true;
         Toast.makeText(this, "Ketuk sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
 
         }
-        }
+}
