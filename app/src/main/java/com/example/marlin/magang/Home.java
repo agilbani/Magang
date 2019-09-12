@@ -12,10 +12,13 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.service.notification.Condition;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +47,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.marlin.magang.model.ListData;
 
 
 import org.json.JSONArray;
@@ -57,15 +61,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 
 import okhttp3.Route;
 
 import static android.R.layout.simple_spinner_item;
 
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ListData_Fragment.OnListDataListener {
 
     TextView ket;
     ImageView marlinLogo, image_view;
@@ -181,7 +185,7 @@ public class Home extends AppCompatActivity {
 
 
             @Override
-            public void onNothingSelected(AdapterView<?> adap    terView) {
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
@@ -233,6 +237,7 @@ public class Home extends AppCompatActivity {
 
 
         btnSend.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -241,6 +246,21 @@ public class Home extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+    private void insertData() {
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                List<ListData> listData= new ArrayList<>();
+
+                FileApp.getInstance().getDatabase().listDataDAO().insertAll(listData);
+                return null;
+            }
+        }.execute();
     }
 
     private void Validasi() {
@@ -256,6 +276,7 @@ public class Home extends AppCompatActivity {
             Log.d("cek", description);
 
             ShowSendPopup(route, condition, description);
+
         }
     }
 
@@ -337,6 +358,10 @@ public class Home extends AppCompatActivity {
             startActivity(intent);
             finish();
             return true;
+        }else if (id == R.id.actionList) {
+            Intent intent = new Intent(getApplicationContext(), DataActivity.class);
+            startActivity(intent);
+            return true;
         }
 
 
@@ -363,7 +388,9 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+
                 sendData();
+
 
                 progressDialog.setMessage("Please wait...");
                 progressDialog.show();
@@ -384,6 +411,8 @@ public class Home extends AppCompatActivity {
 //                spinnerRoute.setAdapter(null);
 //                spinnerCond.setAdapter(null);
 
+
+
             }
         });
 
@@ -397,6 +426,8 @@ public class Home extends AppCompatActivity {
         alertDialog.show();
 
     }
+
+
 
     private void sendData() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ReportURL,
@@ -463,15 +494,25 @@ public class Home extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
         }
-        @Override
-            public void onBackPressed() {
-                if (doubleTapParam) {
-                super.onBackPressed();
-                return;
-            }
+@Override
+public void onBackPressed() {
+        if (doubleTapParam) {
+        super.onBackPressed();
+        return;
+        }
 
         this.doubleTapParam = true;
         Toast.makeText(this, "Ketuk sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
 
         }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        return false;
+    }
+
+    @Override
+    public void onListData(ListData listData) {
+
+    }
 }
