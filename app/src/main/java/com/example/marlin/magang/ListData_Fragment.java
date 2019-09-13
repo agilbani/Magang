@@ -86,9 +86,7 @@ public class ListData_Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         sessionManager = new SessionManager(getContext());
         sessionManager.checkLogin();
-
-        sharedPreferences = getActivity().getSharedPreferences("LOGIN", Context.MODE_PRIVATE
-        );
+        sharedPreferences = getActivity().getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         token = sharedPreferences.getString("TOKEN", "default");
         RecyclerView recyclerView = view.findViewById(R.id.RecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -135,65 +133,6 @@ public class ListData_Fragment extends Fragment {
         };
         stringRequest.setTag(TAG);
         queue.add(stringRequest);
-
-//        new AsyncTask<Void, Void, Void>(){
-//
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//               FileApp.getInstance().getDatabase().listDataDAO().getAll();
-//                return null;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(Void aVoid) {
-//                super.onPostExecute(aVoid);
-//                mAdapter.UpdateItem(listData);
-//            }
-//        }.execute();
-
-
-//        RequestQueue queue = Volley.newRequestQueue(getActivity());
-//        String url = "http://armpit.marlinbooking.co.id/api/report";
-//
-//        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                try {
-//                        JSONObject object = new JSONObject(response);
-//                    if (object.optString("success").equals("true")){
-//                        mListData = new ArrayList<>();
-//                        JSONArray dataArray = object.getJSONArray("payload");
-//                        for(int i = 0; i < dataArray.length(); i++){
-//                            JSONObject dataObject = dataArray.getJSONObject(i);
-//
-//                            String image = object.getString("image");
-//                            String trayek_id = object.getString("trayek_id");
-//                            String status = object.getString("status");
-//
-//                            ListData listData = new ListData(image, trayek_id, status);
-//
-//                            listData.setImage(image);
-//                            listData.setTrayek_id(trayek_id);
-//                            listData.setStatus(status);
-//
-//                            mListData.add(listData);
-//
-//                            mAdapter = new ListAdapter(mListData, ListData_Fragment.this);
-//                            mAdapter.notifyDataSetChanged();
-//
-//                            recyclerView.setLayoutManager(new LinearLayoutManager(ListData_Fragment.this));
-//                            recyclerView.setItemAnimator(new DefaultItemAnimator());
-//                            recyclerView.setAdapter(mAdapter);
-//                        }
-//                    }
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-
-//        mAdapter.UpdateItem(listData);
     }
 
     @Override
