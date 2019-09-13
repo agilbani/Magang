@@ -9,6 +9,23 @@
     android:weightSum="3"
     tools:context=".DetailActivity">
 
+    <android.support.v7.widget.Toolbar
+    android:id="@+id/app_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/design_default_color_primary"
+    app:popupTheme="@style/PopupStyle">
+
+    <TextView
+        android:id="@+id/tb_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="DETAIL"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+</android.support.v7.widget.Toolbar>
 
 
         <ImageView
@@ -17,14 +34,18 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="center"
             android:id="@+id/gambar1"
             android:layout_height="0dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Trayek Id:"
                 android:textSize="15dp"
+                android:textColor="#000000"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -43,6 +64,8 @@
                 android:layout_height="wrap_content"
                 android:text="Status:"
                 android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="#000000"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
