@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marlin.magang.model.ListData;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -40,12 +41,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         viewHolder.mTrayekid.setText(listData.get(i).getTrayek_id());
         viewHolder.mStatus.setText(listData.get(i).getStatus());
 
+        
+
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                mListener.onListData(listData.get(i));
+            public void onClick(View v) { mListener.onListData(listData.get(i));
+
+
+
             }
         });
+
     }
 
     @Override
