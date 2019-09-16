@@ -31,7 +31,7 @@ public class DetailActivity extends AppCompatActivity {
         tvStatus = (TextView)findViewById(R.id.detail_status);
 
         Intent intent = getIntent();
-        Bundle bundle =intent.getExtras();
+        Bundle bundle = intent.getExtras();
 
 
         assert bundle != null;
@@ -45,7 +45,7 @@ public class DetailActivity extends AppCompatActivity {
 
             tvTrayek.setText(trayek_id);
             tvStatus.setText(status);
-        Picasso.get().load(image).into(gambar);
+            Picasso.get().load(image).into(gambar);
 //            gambar.setImageURI(image);
 
 

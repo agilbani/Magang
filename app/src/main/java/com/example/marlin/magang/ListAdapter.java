@@ -2,6 +2,7 @@ package com.example.marlin.magang;
 
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marlin.magang.model.ListData;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.PicassoProvider;
 
+import java.io.File;
 import java.util.List;
 
 
@@ -20,6 +24,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private Context context;
     private List<ListData> listData;
     private ListData_Fragment.OnListDataListener mListener;
+
+    String image;
 
     public ListAdapter(Context context, List<ListData> listData, ListData_Fragment.OnListDataListener mListener){
         this.context = context;
@@ -36,7 +42,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
-        viewHolder.mImage.setImageResource(R.drawable.background);
+        Picasso.get().load(listData.get(i).getImage()).into(viewHolder.mImage);
+
+       // viewHolder.mImage.setImageResource(R.drawable.background);
         viewHolder.mTrayekid.setText(listData.get(i).getTrayek_id());
         viewHolder.mStatus.setText(listData.get(i).getStatus());
 
