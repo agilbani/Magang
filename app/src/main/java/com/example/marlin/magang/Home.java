@@ -391,7 +391,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
                 sendData();
 
-
                 progressDialog.setMessage("Please wait...");
                 progressDialog.show();
 
@@ -403,12 +402,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     }
                 }, 500);
 
-
                 etDescription.setText("");
 
                 dialog.dismiss();
-
-
 
 
             }
@@ -441,6 +437,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                             if (jsonObject.optString("success").equals("true")) {
                                 Toast.makeText(Home.this, "Send Data Success", Toast.LENGTH_SHORT).show();
                               // finish();
+
 
                             }
                         } catch (JSONException e) {

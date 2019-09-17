@@ -9,13 +9,13 @@ public class ListData {
     @PrimaryKey
     @NonNull
     private String id;
-    private String trayek_id;
+    private String trayek_nama;
     private String status;
     private String image;
 
-    public ListData (String id, String trayek_id, String status, String image) {
+    public ListData (String id, String trayek_nama, String status, String image) {
         this.id = id;
-        this.trayek_id = trayek_id;
+        this.trayek_nama = trayek_nama;
         this.status = status;
         this.image = image;
     }
@@ -25,11 +25,11 @@ public class ListData {
     public void setId(String id) {
         this.id = id;
     }
-    public String getTrayek_id() {
-        return trayek_id;
+    public String getTrayek_nama() {
+        return trayek_nama;
     }
-    public void setTrayek_id(String trayek_id) {
-        this.trayek_id = trayek_id;
+    public void setTrayek_nama(String trayek_id) {
+        this.trayek_nama = trayek_nama;
     }
     public String getStatus(){
         return status;

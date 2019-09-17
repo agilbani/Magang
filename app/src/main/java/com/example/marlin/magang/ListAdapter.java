@@ -45,7 +45,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         Picasso.get().load(listData.get(i).getImage()).into(viewHolder.mImage);
 
        // viewHolder.mImage.setImageResource(R.drawable.background);
-        viewHolder.mTrayekid.setText(listData.get(i).getTrayek_id());
+        viewHolder.mTrayekNama.setText(listData.get(i).getTrayek_nama());
         viewHolder.mStatus.setText(listData.get(i).getStatus());
 
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +74,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView mImage;
-        private TextView mTrayekid;
+        private TextView mTrayekNama;
         private TextView mStatus;
         private View mView;
 
@@ -82,7 +82,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             super(itemView);
             mView = itemView;
             mImage = itemView.findViewById(R.id.img);
-            mTrayekid = itemView.findViewById(R.id.list_trayek);
+            mTrayekNama = itemView.findViewById(R.id.list_trayek);
             mStatus = itemView.findViewById(R.id.list_status);
 
         }

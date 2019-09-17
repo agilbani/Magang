@@ -19,7 +19,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvStatus;
     ImageView gambar;
 
-    String trayek_id, status, image;
+    String trayek_nama, status, image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +37,13 @@ public class DetailActivity extends AppCompatActivity {
         assert bundle != null;
         image = bundle.getString("image");
         Log.d("cuma1", image);
-        trayek_id = bundle.getString("trayekId");
-        Log.d("cuma2" , trayek_id);
+        trayek_nama = bundle.getString("trayekNama");
+        Log.d("cuma2" , trayek_nama);
         status = bundle.getString("status");
         Log.d("cuma3", status);
 
 
-            tvTrayek.setText(trayek_id);
+            tvTrayek.setText(trayek_nama);
             tvStatus.setText(status);
             Picasso.get().load(image).into(gambar);
 //            gambar.setImageURI(image);

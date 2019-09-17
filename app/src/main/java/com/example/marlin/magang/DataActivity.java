@@ -26,13 +26,13 @@ public class DataActivity extends AppCompatActivity implements ListData_Fragment
 
         Bundle bundle = new Bundle();
         bundle.putString("image", listData.getImage());
-        bundle.putString("trayekId", listData.getTrayek_id());
+        bundle.putString("trayekNama", listData.getTrayek_nama());
         bundle.putString("status", listData.getStatus());
 
         Intent intent = new Intent(DataActivity.this, DetailActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
 
-        Toast.makeText(this, "CLICK" + listData.getTrayek_id(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "CLICK" + listData.getTrayek_nama(), Toast.LENGTH_SHORT).show();
     }
 }
