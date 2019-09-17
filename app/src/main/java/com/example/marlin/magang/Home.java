@@ -100,7 +100,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     Uri imageUri;
     String TrayekURL = "http://armpit.marlinbooking.co.id/api/trayek";
 
-    String ReportURL = "http://armpit.marlinbooking.co.id/api/report";
+    String ReportURL = "http://armpit.marlinbooking.co.id/api/report/single?id=39284978-d84b-11e9-8644-0242a39ea214";
 
     private ArrayList<SpinnerModel> SpinnerModelArrayList;
     private ArrayList<String> trayekName = new ArrayList<String>();

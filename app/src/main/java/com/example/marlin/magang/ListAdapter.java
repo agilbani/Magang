@@ -16,6 +16,8 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.PicassoProvider;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -68,6 +70,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     public void UpdateItem(List<ListData>listData){
         this.listData = listData;
+        Collections.sort(listData, new Comparator<ListData>() {
+            @Override
+            public int compare(ListData o1, ListData o2) {
+                return 0;
+            }
+        });
         notifyDataSetChanged();
     }
 
