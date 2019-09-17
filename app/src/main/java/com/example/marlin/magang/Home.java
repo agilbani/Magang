@@ -137,7 +137,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
             image_view.setImageBitmap(decodeBitmap);
 
-            sendData();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -439,6 +438,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                               // finish();
 
 
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -460,6 +460,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
                 Map<String, String> params = new HashMap<>();
 
+//                params. put("id", );
+//                Log.d("COBAAA", params.toString());
                 params.put("trayek_id", Trayek_Id);
                 Log.d("COBAAA1", params.toString());
                 params.put("company_id", Company_Id);
@@ -473,6 +475,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 params.put("image"," data:image/png;base64," + base64);
                 Log.d("COBAAA6", params.toString());
                 return params;
+
+
 
             }
 

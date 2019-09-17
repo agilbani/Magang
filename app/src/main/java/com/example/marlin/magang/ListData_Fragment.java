@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
 
 public class ListData_Fragment extends Fragment {
 
@@ -51,6 +52,7 @@ public class ListData_Fragment extends Fragment {
     private RecyclerView recyclerView;
     SharedPreferences sharedPreferences;
     String token = "";
+    String Id;
     SessionManager sessionManager;
     List<ListData> listData;
 
@@ -67,6 +69,10 @@ public class ListData_Fragment extends Fragment {
         if (getArguments() != null) {
         }
         mListData = new ArrayList<>();
+
+
+
+
     }
 
     @Override
@@ -86,7 +92,8 @@ public class ListData_Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         sessionManager = new SessionManager(getContext());
         sessionManager.checkLogin();
-        sharedPreferences = getActivity().getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences("LOGIN", MODE_PRIVATE);
+        Id = sharedPreferences.getString("ID", "default_id");
         token = sharedPreferences.getString("TOKEN", "default");
         RecyclerView recyclerView = view.findViewById(R.id.RecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -94,7 +101,7 @@ public class ListData_Fragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-       mAdapter = new ListAdapter(getActivity(), null, mListener);
+        mAdapter = new ListAdapter(getActivity(), null, mListener);
         recyclerView.setAdapter(mAdapter);
 
         loadData();
@@ -102,7 +109,7 @@ public class ListData_Fragment extends Fragment {
 
     private void loadData() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "http://armpit.marlinbooking.co.id/api/report";
+        String url = "http://armpit.marlinbooking.co.id/api/report" + "single?" + Id;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
