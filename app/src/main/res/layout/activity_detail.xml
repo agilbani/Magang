@@ -24,7 +24,7 @@
         android:text="DETAIL"
         android:textSize="25dp"
         android:textStyle="bold"
-        android:textColor="#000000" />
+        android:textColor="#C3C5C5" />
 </android.support.v7.widget.Toolbar>
 
 

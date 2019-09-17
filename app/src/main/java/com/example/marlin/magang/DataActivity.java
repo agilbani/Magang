@@ -33,6 +33,6 @@ public class DataActivity extends AppCompatActivity implements ListData_Fragment
         intent.putExtras(bundle);
         startActivity(intent);
 
-        Toast.makeText(this, "CLICK" + listData.getTrayek_nama(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "CLICK " + listData.getTrayek_nama(), Toast.LENGTH_SHORT).show();
     }
 }
