@@ -100,7 +100,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     Uri imageUri;
     String TrayekURL = "http://armpit.marlinbooking.co.id/api/trayek";
 
-    String ReportURL = "http://armpit.marlinbooking.co.id/api/report/single?id=39284978-d84b-11e9-8644-0242a39ea214";
+    String ReportURL = "http://armpit.marlinbooking.co.id/api/report";
 
     private ArrayList<SpinnerModel> SpinnerModelArrayList;
     private ArrayList<String> trayekName = new ArrayList<String>();
@@ -396,12 +396,19 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent dialogg = new Intent(Home.this, Home.class);
-                        startActivity(dialogg);
+
+                        progressDialog.dismiss();
+//                        Intent dialogg = new Intent(Home.this, Home.class);
+//                        startActivity(dialogg);
                     }
                 }, 500);
 
                 etDescription.setText("");
+                base64 = null;
+                image_view.setImageResource(0);
+                image_view.setVisibility(View.GONE);
+
+
 
                 dialog.dismiss();
 
@@ -428,16 +435,28 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     @Override
                     public void onResponse(String response) {
                         Log.d("oke", response);
+
+
+
                         try {
+                            AlertDialog builder = new AlertDialog.Builder(Home.this).create();
+                            builder.setMessage("Send Data Success");
+                            builder.setCancelable(true);
+                            builder.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            builder.show();
+
                             JSONObject jsonObject = new JSONObject(response);
 
                             String success = jsonObject.getString("message");
 
                             if (jsonObject.optString("success").equals("true")) {
-                                Toast.makeText(Home.this, "Send Data Success", Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(Home.this, "Send Data Success", Toast.LENGTH_SHORT).show();
                               // finish();
-
-
 
                             }
                         } catch (JSONException e) {
@@ -475,9 +494,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 params.put("image"," data:image/png;base64," + base64);
                 Log.d("COBAAA6", params.toString());
                 return params;
-
-
-
             }
 
                 @Override

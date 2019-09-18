@@ -110,6 +110,7 @@ public class ListData_Fragment extends Fragment {
     private void loadData() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "http://armpit.marlinbooking.co.id/api/report/" + "single?" + "id=" + Id;
+        Log.d("URL", url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
