@@ -36,6 +36,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.marlin.magang.model.ListData;
+import com.example.marlin.magang.model.Trayek;
 
 
 import org.json.JSONArray;
@@ -74,7 +76,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     TextView ket;
     ImageView marlinLogo, image_view;
     Spinner spinnerRoute, spinnerCond;
-    Button btnChooseImage, btnSend;
+    Button btnChooseImage, btnChooseTrayek, btnSend;
     EditText etDescription;
 
     AlertDialog.Builder alertDialog;
@@ -83,10 +85,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     TextView tvRoute, tvIsiRoute, tvCondition, tvIsiCondition, tvDescription, tvIsiDescription;
     Button btnOk, btnCancel;
     ProgressDialog progressDialog;
+    TextView tvNamaTrayek, tvNamaTrayek2, tvIdTrayek, tvIdTrayek2, tvCompanyTrayek, tvCompanyTrayek2;
 
     SharedPreferences.Editor editor;
 
-    String Token, Trayek_Id, Company_Id, NamaRoute, NamaKondisi, Id;
+    String Token, Trayek_Id, Company_Id, NamaRoute, NamaKondisi, Id, Nama;
 
     String base64 = null;
 
@@ -96,9 +99,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     SessionManager sessionManager;
 
+    LinearLayout linearText;
+
     final int kodeGalerry = 100;
     Uri imageUri;
-    String TrayekURL = "http://armpit.marlinbooking.co.id/api/trayek";
 
     String ReportURL = "http://armpit.marlinbooking.co.id/api/report";
 
@@ -164,43 +168,90 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         ket = (TextView) findViewById(R.id.ketDesc);
         marlinLogo = (ImageView) findViewById(R.id.imgMarlin);
         etDescription = (EditText) findViewById(R.id.etDescription);
+        tvNamaTrayek = (TextView) findViewById(R.id.tvNamaTrayek);
+        tvNamaTrayek2 = (TextView) findViewById(R.id.tvNamaTrayek2);
+        tvIdTrayek = (TextView) findViewById(R.id.tvIdTrayek);
+        tvIdTrayek2 = (TextView) findViewById(R.id.tvIdTrayek2);
+        tvCompanyTrayek = (TextView) findViewById(R.id.tvCompanyTrayek);
+        tvCompanyTrayek2 = (TextView) findViewById(R.id.tvCompanyTrayek2);
+        linearText = (LinearLayout) findViewById(R.id.linearText);
 
-        spinnerRoute = (Spinner) findViewById(R.id.spinnerRoute);
+      //  spinnerRoute = (Spinner) findViewById(R.id.spinnerRoute);
 
-        loadSpinnerData();
+      //  loadSpinnerData();
 
         sharedPreferences = getSharedPreferences("LOGIN",MODE_PRIVATE);
         Id = sharedPreferences.getString("ID", "default_id");
         Token = sharedPreferences.getString("TOKEN", "default_token");
         Log.d("Token", Token);
 
-        spinnerRoute.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                NamaRoute = SpinnerModelArrayList.get(position).getNama();
-                Trayek_Id = SpinnerModelArrayList.get(position).getId();
-                Company_Id = SpinnerModelArrayList.get(position).getCompany_id();
-            }
+//        spinnerRoute.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                NamaRoute = SpinnerModelArrayList.get(position).getNama();
+//                Trayek_Id = SpinnerModelArrayList.get(position).getId();
+//                Company_Id = SpinnerModelArrayList.get(position).getCompany_id();
+//            }
 
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 
-            }
-        });
+//        Intent intent = getIntent();
+//        Bundle bundle = intent.getExtras();
+//
+//        assert bundle != null;
+//        Nama = bundle.getString("Nama_Trayek");
+//        Trayek_Id = bundle.getString("Trayek_id");
+//        Company_Id = bundle.getString("Company_id");
 
         spinnerCond = (Spinner) findViewById(R.id.spinnerCond);
         btnChooseImage = (Button) findViewById(R.id.btnChooseImg);
         image_view = (ImageView) findViewById(R.id.image_view);
         btnSend = (Button) findViewById(R.id.btnSend);
+        btnChooseTrayek = (Button) findViewById(R.id.btnChooseTrayek);
+
+        btnChooseTrayek.setText("Pilih Trayek");
+        Intent i = getIntent();
+        Bundle bundle = i.getExtras();
+        if(bundle != null){
+
+            Nama = bundle.getString("Nama");
+            Log.d("Data1", "ada data " + Nama);
+            Trayek_Id = bundle.getString("Trayek_id");
+            Log.d("Data", "ada Data" + Trayek_Id );
+            Company_Id = bundle.getString("Company_id");
+            btnChooseTrayek.setText(bundle.getString("Nama"));
+            Log.d("=========", "ada data" + Company_Id);
+
+            tvNamaTrayek.setVisibility(tvNamaTrayek.VISIBLE);
+            tvNamaTrayek2.setVisibility(tvNamaTrayek2.VISIBLE);
+            tvIdTrayek.setVisibility(tvIdTrayek.VISIBLE);
+            tvIdTrayek2.setVisibility(tvIdTrayek2.VISIBLE);
+            tvCompanyTrayek.setVisibility(tvCompanyTrayek.VISIBLE);
+            tvCompanyTrayek2.setVisibility(tvCompanyTrayek2.VISIBLE);
+
+            tvNamaTrayek2.setText(Nama);
+            tvIdTrayek2.setText(Trayek_Id);
+            tvCompanyTrayek2.setText(Company_Id);
+        }
+
+        btnChooseTrayek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Home.this, DataTrayek.class));
+            }
+        });
 
 
         spinnerCond.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (
-                        parent.getItemAtPosition(position).equals("--Select Condition--")) {
+                if (parent.getItemAtPosition(position).equals("--Select Condition--")) {
                 }else {
                     String item = parent.getItemAtPosition(position).toString();
                     Toast.makeText(parent.getContext(),"Selected: " +item, Toast.LENGTH_SHORT).show();
@@ -262,80 +313,89 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         }.execute();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Trayek trayek = new Trayek("Pilih Trayek", "", "");
+        btnChooseTrayek.setText(trayek.getNama());
+        Log.d("RESUME", trayek.getNama());
+
+    }
+
     private void Validasi() {
         if(NamaKondisi.equals("--Select Condition--")){
             Toast.makeText(this, "Silahkan Pilih Kondisi Terlebih dahulu", Toast.LENGTH_SHORT).show();
 
         }else{
-            String route = spinnerRoute.getSelectedItem().toString().trim();
-            Log.d("cek1", route);
+//            String route = spinnerRoute.getSelectedItem().toString().trim();
+//            Log.d("cek1", route);
             String condition = spinnerCond.getSelectedItem().toString().trim();
             Log.d("cek2", condition);
             String description = etDescription.getText().toString().trim();
             Log.d("cek", description);
 
-            ShowSendPopup(route, condition, description);
+            ShowSendPopup(Nama, condition, description);
 
         }
     }
 
-    private void loadSpinnerData() {
-        Log.d("======================", ">>" + tvRoute);
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, TrayekURL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.d("RESPONNNNNNNNNNN", ">>" + response);
-                    try {
-                        JSONObject obj = new JSONObject(response);
-                        if (obj.optString("success").equals("true")) {
-                            SpinnerModelArrayList = new ArrayList<>();
-                            JSONArray dataArray = obj.getJSONArray("payload");
-                            for (int i = 0; i < dataArray.length(); i++) {
-                                SpinnerModel spinnerModel = new SpinnerModel();
-                                JSONObject dataobj = dataArray.getJSONObject(i);
-
-                                spinnerModel.setId(dataobj.getString("id"));
-                                spinnerModel.setCompany_id(dataobj.getString("company_id"));
-                                spinnerModel.setNama(dataobj.getString("nama"));
-                                spinnerModel.setLokasi(dataobj.getString("lokasi"));
-
-                                SpinnerModelArrayList.add(spinnerModel);
-                            }
-
-                            for (int i = 0; i < SpinnerModelArrayList.size(); i++) {
-                                trayekName.add(SpinnerModelArrayList.get(i).getNama().toString());
-                                trayekID.add(SpinnerModelArrayList.get(i).getId().toString());
-                                trayekCompanyID.add(SpinnerModelArrayList.get(i).getCompany_id().toString());
-                            }
-
-                            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(Home.this, simple_spinner_item, trayekName);
-                            spinnerArrayAdapter.setDropDownViewResource(simple_spinner_item);
-                            spinnerRoute.setAdapter(spinnerArrayAdapter);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-
-    })
-            {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap headers = new HashMap();
-                    headers.put("Content-Type", "application/json");
-                    headers.put("Authorization", "Bearer " + Token);
-                    return headers;
-                }
-            };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
+//    private void loadSpinnerData() {
+//        Log.d("======================", ">>" + tvRoute);
+//            StringRequest stringRequest = new StringRequest(Request.Method.GET, TrayekURL, new Response.Listener<String>() {
+//                @Override
+//                public void onResponse(String response) {
+//                    Log.d("RESPONNNNNNNNNNN", ">>" + response);
+//                    try {
+//                        JSONObject obj = new JSONObject(response);
+//                        if (obj.optString("success").equals("true")) {
+//                            SpinnerModelArrayList = new ArrayList<>();
+//                            JSONArray dataArray = obj.getJSONArray("payload");
+//                            for (int i = 0; i < dataArray.length(); i++) {
+//                                SpinnerModel spinnerModel = new SpinnerModel();
+//                                JSONObject dataobj = dataArray.getJSONObject(i);
+//
+//                                spinnerModel.setId(dataobj.getString("id"));
+//                                spinnerModel.setCompany_id(dataobj.getString("company_id"));
+//                                spinnerModel.setNama(dataobj.getString("nama"));
+//                                spinnerModel.setLokasi(dataobj.getString("lokasi"));
+//
+//                                SpinnerModelArrayList.add(spinnerModel);
+//                            }
+//
+//                            for (int i = 0; i < SpinnerModelArrayList.size(); i++) {
+//                                trayekName.add(SpinnerModelArrayList.get(i).getNama().toString());
+//                                trayekID.add(SpinnerModelArrayList.get(i).getId().toString());
+//                                trayekCompanyID.add(SpinnerModelArrayList.get(i).getCompany_id().toString());
+//                            }
+//
+//                            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(Home.this, simple_spinner_item, trayekName);
+//                            spinnerArrayAdapter.setDropDownViewResource(simple_spinner_item);
+//                            spinnerRoute.setAdapter(spinnerArrayAdapter);
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            },
+//                    new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError error) {
+//                            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//
+//    })
+//            {
+//                @Override
+//                public Map<String, String> getHeaders() throws AuthFailureError {
+//                    HashMap headers = new HashMap();
+//                    headers.put("Content-Type", "application/json");
+//                    headers.put("Authorization", "Bearer " + Token);
+//                    return headers;
+//                }
+//            };
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//        requestQueue.add(stringRequest);
+//    }
 
 
     @Override
@@ -379,7 +439,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         final TextView tvIsiCondition = (TextView) dialogView.findViewById(R.id.tvIsiCondition);
         final TextView tvIsiDescription = (TextView) dialogView.findViewById(R.id.tvIsiDescription);
 
-        tvIsiRoute.setText(NamaRoute);
+        tvIsiRoute.setText(route);
         tvIsiCondition.setText(condition);
         tvIsiDescription.setText(description);
 
@@ -407,6 +467,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 base64 = null;
                 image_view.setImageResource(0);
                 image_view.setVisibility(View.GONE);
+                tvNamaTrayek.setText("");
+                tvNamaTrayek2.setText("");
+                tvIdTrayek.setText("");
+                tvIdTrayek2.setText("");
+                tvCompanyTrayek.setText("");
+                tvCompanyTrayek2.setText("");
+                linearText.setVisibility(View.GONE);
+
+
 
 
 
@@ -440,9 +509,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
                         try {
                             AlertDialog builder = new AlertDialog.Builder(Home.this).create();
+                            builder.setTitle("Message");
                             builder.setMessage("Send Data Success");
                             builder.setCancelable(true);
-                            builder.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                            builder.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();

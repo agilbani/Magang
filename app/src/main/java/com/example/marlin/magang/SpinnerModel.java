@@ -2,13 +2,29 @@ package com.example.marlin.magang;
 
 public class SpinnerModel {
 
-    private String id, company_id, nama, lokasi;
+    private String trayek_id, nama, id, company_id;
 
-    public String getId(){
+    public String getTrayek_id(){
+        return trayek_id;
+    }
+
+    public void setTrayek_id(String trayek_id){
+        this.trayek_id = trayek_id;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(String id){
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -20,19 +36,4 @@ public class SpinnerModel {
         this.company_id = company_id;
     }
 
-    public String getNama() {
-        return nama;
-    }
-
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
-
-    public String getLokasi() {
-        return lokasi;
-    }
-
-    public void setLokasi(String lokasi) {
-        this.lokasi = lokasi;
-    }
 }

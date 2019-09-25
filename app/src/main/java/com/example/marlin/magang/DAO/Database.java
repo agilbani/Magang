@@ -4,7 +4,7 @@ import android.arch.persistence.room.RoomDatabase;
 
 import com.example.marlin.magang.model.ListData;
 
-@android.arch.persistence.room.Database(entities = ListData.class, version = 2)
+@android.arch.persistence.room.Database(entities = ListData.class, version = 2, exportSchema = false)
 public abstract class Database extends RoomDatabase  {
     public abstract ListDataDAO listDataDAO();
 }

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
     android:background="#dee2e4"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:weightSum="1"
     tools:context=".Home">
@@ -40,32 +42,131 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/route"
                 android:textColor="#34495e"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btnChooseTrayek"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:elevation="5dp"
                 android:background="@drawable/text_view_background"
-                android:orientation="horizontal">
+                android:elevation="30dp"
+                android:text="TRAYEK" />
 
-                <Spinner
-                    android:id="@+id/spinnerRoute"
+            <LinearLayout
+                android:id="@+id/linearText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:spinnerMode="dropdown">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                </Spinner>
+                    <TextView
+                        android:id="@+id/tvNamaTrayek"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.7"
+                        android:text="Nama Trayek :"
+                        android:textSize="15dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvNamaTrayek2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1.3"
+                        android:text=""
+                        android:textSize="15dp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/tvIdTrayek"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.7"
+                        android:text="Trayek Id :"
+                        android:visibility="gone"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/tvIdTrayek2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1.3"
+                        android:visibility="gone"
+                        android:text=""
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/tvCompanyTrayek"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:layout_margin="10dp"
+                        android:text="Company Id :"
+                        android:visibility="gone"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/tvCompanyTrayek2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.3"
+                        android:layout_margin="10dp"
+                        android:visibility="gone"
+                        android:text=""
+                        android:textSize="15dp"/>
+                </LinearLayout>
+
 
             </LinearLayout>
+
+            <!--<Spinner-->
+            <!--android:id="@+id/spinnerRoute"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:spinnerMode="dropdown">-->
+
+            <!--</Spinner>-->
+
 
             <TextView
                 android:id="@+id/ketCondition"
@@ -84,8 +185,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:elevation="5dp"
                 android:background="@drawable/text_view_background"
+                android:elevation="5dp"
                 android:orientation="horizontal">
 
                 <Spinner
@@ -134,9 +235,6 @@
                 android:id="@+id/etDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="7"
-                android:maxLines="10"
-                android:minLines="4"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
@@ -145,7 +243,9 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
-               />
+                android:lines="7"
+                android:maxLines="10"
+                android:minLines="4" />
 
             <Button
                 android:id="@+id/btnSend"

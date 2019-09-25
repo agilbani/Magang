@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:windowSoftInputMode="adjustPan"
         android:name=".FileApp"
         android:allowBackup="true"
         android:icon="@mipmap/unnamed"
@@ -24,10 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".DataTrayek" />
         <activity android:name=".Register" />
         <activity android:name=".Login" />
-        <activity android:name=".Home" />
+        <activity android:name=".Home"  />
     </application>
 
 </manifest>
