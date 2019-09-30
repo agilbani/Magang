@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background"
     android:scrollbarAlwaysDrawVerticalTrack="true"
     tools:context=".Login">
 
 
+    <ImageButton
+        android:id="@+id/imageLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/logo"
+        android:elevation="4dp" />
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="-25dp"
+        android:gravity="center"
         android:layout_marginRight="30dp"
         android:background="#ffffff"
-        android:elevation="4dp"
         android:orientation="vertical"
         android:padding="20dp">
 
@@ -75,15 +86,6 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/imageLogo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
-        android:background="@drawable/logo"
-        android:elevation="4dp" />
-
     <!--<ProgressBar-->
         <!--android:id="@+id/loading"-->
         <!--android:layout_width="wrap_content"-->
@@ -94,7 +96,7 @@
         <!--android:visibility="invisible"/>-->
 
 
-</RelativeLayout>
+</LinearLayout>
 
 
 
